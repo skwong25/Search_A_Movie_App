@@ -27,8 +27,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {InputField} from './AppContainer';
-import {GetRequest} from './AppContainer2';
+import {InputField} from './InputField';
+import {GetRequest} from './GetRequest';
+import {Output} from './Output';
 
 class App extends React.Component {
 
@@ -36,18 +37,20 @@ constructor(props) {
   super(props);
 
   this.state = { 
-    keyword: null 
+    keyword: null, 
+    movie: {}
   }
   this.handleChange = this.handleChange.bind(this)
+  this.handleData = this.handleData.bind (this)
 }
 
 handleChange(e) {
   const keyword = e.target.value
-  console.log(keyword);
-  this.setState({ 
-    keyword: keyword
-  });
-  console.log(this.state.keyword)
+  this.setState({ keyword: keyword });
+}
+
+handleData(e) {
+  this.setState({movie: e});
 }
 
   
@@ -56,7 +59,11 @@ render() {
   return (
     <div className="App">
       <InputField onChange={this.handleChange}/>
-      <GetRequest keyword={this.state.keyword}/> 
+      <GetRequest 
+        keyword={this.state.keyword}
+        handleData={this.handleData}
+      />
+      <Output movieData={this.state.movie}/>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

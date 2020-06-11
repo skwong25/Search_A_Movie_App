@@ -21,7 +21,7 @@ export class GetRequest extends React.Component {
       .then(response => response.json(), Error => console.log(Error.message))  // The Promise resolved, however there is an Error
       .then(data => {
           console.log(data); 
-          this.setState({ movie: data })
+          this.props.handleData(data);
     })
   } 
 
@@ -33,7 +33,6 @@ export class GetRequest extends React.Component {
       <br/>
       <button onClick={this.handleClick} >Search</button> 
       <br/>
-      <h3>The Movie I Found For You is Called: {this.state.movie.Year}</h3>;
       </div>
     ) 
   }
