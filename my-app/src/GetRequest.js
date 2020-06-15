@@ -1,4 +1,9 @@
-import React from 'react';
+/**
+ * Child Class 2 - to handle the GET request 
+ * Stateful Component Class - only has state to manage the handleClick function, should we move this into App? 
+ */
+
+ import React from 'react';
 
 export class GetRequest extends React.Component {
 
