@@ -4,12 +4,10 @@ export class GetRequest extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {movie: {}};
     this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick() {
+  handleClick() { // is handleClick called only when onClick is triggered)? 
 
     const wordQuery = this.props.keyword;
     const apiKey = '9990ead4';
@@ -19,25 +17,22 @@ export class GetRequest extends React.Component {
     // 's=' returns 10 films, in format: Object containing Properties. One is Search whose Value is an Array. 
     //                                   The Array contains key-value pairs, each representing a film's info.
     //                                   { Search: [ 0:{Title: "Example", Year: "1990" ... }, 1:{}, 2:{}, 3:{} ], ...}
-    // To access the film we must 
+    // To access the film Title we must e.Search. 
     const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery; 
   
     fetch(endpoint)
-      .then(response => response.json(), Error => console.log(Error.message))  // The Promise resolved, however there is an Error
+      .then(response => response.json(), Error => console.log(Error.message))  
       .then(data => {
           console.log(data); 
-          this.props.handleData(data);
+          this.props.handleData(data); //passes it back to the App.js which updates its state  
     })
   } 
 
   render() {
 
     return ( 
-      <div><br/>
-      <label for="search"></label>
-      <br/>
+      <div>
       <button className="Search" onClick={this.handleClick} >Search</button> 
-      <br/>
       </div>
     ) 
   }

@@ -39,7 +39,7 @@ constructor(props) {
 
   this.state = { 
     keyword: null, 
-    movie: {}
+    movie: null,
   }
   this.handleChange = this.handleChange.bind(this)
   this.handleData = this.handleData.bind (this)
@@ -51,8 +51,9 @@ handleChange(e) {
 }
 
 handleData(e) {
-  const movieData = e.Search[0]  
-  this.setState({movie: movieData}); //Should be one film's information as an Object 
+  const movieData = e.Search;
+  console.log(movieData); 
+  this.setState({movie: movieData}); // Films as an Array of key-value pairs [ {}, {}, {}]
 }
 
   
