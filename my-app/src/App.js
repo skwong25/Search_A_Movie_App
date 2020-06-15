@@ -1,28 +1,29 @@
 /**
  * Parent Stateless Component
- * Presentational Component - this JUST renders the 
- * In this pattern the state is NOT passed from stateful to stateless - what would that look like?
- *    - in 011, we passed state from a <Parent/> to a <Child/> component
- *    - this meant the <Parent/> was the one rendering the <Child/> 
- *    - ie. We render <Parent/> by calling ReactDom.render(</>), with state of {name: "Frarthur"}
- *    - <Parent/> renders <Child/> passing its state as a prop
+ * Presentational Component - JUST renders other components
+ * In this pattern the state is passed from stateful <Parent/> to stateless <Child/>
+ *    - <Parent/> renders <Child/> passing state as a prop
  *    - <Child/> access this via its props, and calls its own render. 
- *    - This is similar to what we are doing below EXCEPT we are not passing a state. 
- *    - The state is held and controlled in the Child class. 
- *    - Would it be better for the state to be in the Parent class? 
  * 
  * A React component should use:
  *    - 'props' to store info that can be changed by a different component
  *    - 'state' to store info that the component ITSELF can change
  *    in that vein, if <Parent/> has state, maybe it should change it too.
  * 
- * The current question:
- *    Can we 'lift state' and (read up again what lifting state is)
- *    have the two <Child/>s as stateless functional components?
- *    Possibly we want to add a third component just to render the output?
+ * Notes on State:
+ *    - To remember things, components use State
+ *    - Storing the state in App, means the others are Controlled Components
+ *    - We can now turn them all into function components OR stateless functional components
  * 
- *    Then we can revisit the task, and see if there's a way to return an ARRAY of films. 
- *  
+ * The current question:
+ *    See if we can return an array of film titles, and toggle how many results we want to see with a dropdown menu
+ *    (in that case, the query parameter is s=, we just have to figure out how to adjust display results)
+ *    We can sort them via release date. 
+ * 
+ *    When the use is performing a search, we can log how long the search took..?
+ *    meaning also any 'Submit' clicks are ignored, how can we disable the input field? 
+ * 
+ *    If no film is found, an error message can show. 
  */
 import React from 'react';
 import logo from './logo.svg';
@@ -50,7 +51,8 @@ handleChange(e) {
 }
 
 handleData(e) {
-  this.setState({movie: e});
+  const movieData = e.Search[0]  
+  this.setState({movie: movieData}); //Should be one film's information as an Object 
 }
 
   
@@ -58,6 +60,11 @@ render() {
 
   return (
     <div className="App">
+      <h3>How to search:</h3>
+      <ol>
+        <li>Enter keyword</li>
+        <li>Click Search</li>
+      </ol>
       <InputField onChange={this.handleChange}/>
       <GetRequest 
         keyword={this.state.keyword}

@@ -14,7 +14,12 @@ export class GetRequest extends React.Component {
     const wordQuery = this.props.keyword;
     const apiKey = '9990ead4';
     const url = 'http://www.omdbapi.com/?';
-    const queryParams = 't=';
+    const queryParams = 's='; 
+    // 't=' returns a single film 
+    // 's=' returns 10 films, in format: Object containing Properties. One is Search whose Value is an Array. 
+    //                                   The Array contains key-value pairs, each representing a film's info.
+    //                                   { Search: [ 0:{Title: "Example", Year: "1990" ... }, 1:{}, 2:{}, 3:{} ], ...}
+    // To access the film we must 
     const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery; 
   
     fetch(endpoint)
@@ -29,9 +34,9 @@ export class GetRequest extends React.Component {
 
     return ( 
       <div><br/>
-      <label for="search"> Search for a movie: </label>
+      <label for="search"></label>
       <br/>
-      <button onClick={this.handleClick} >Search</button> 
+      <button className="Search" onClick={this.handleClick} >Search</button> 
       <br/>
       </div>
     ) 
