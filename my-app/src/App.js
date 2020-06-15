@@ -55,11 +55,9 @@ handleNumber(e) {
 }
 
 handleData(e) {
-  const movieData = e.Search;
-  console.log(movieData); 
+  const movieData = e.Search; 
   this.setState({movie: movieData}); // Films as an Array of key-value pairs [ {}, {}, {}]
-}
-
+  }
   
 render() {
 
@@ -75,7 +73,8 @@ render() {
       />
       <Output 
         x = {this.state.number}
-        movieData={this.state.movie}/>
+        movieData={this.state.movie}
+        keyword={this.state.keyword}/>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -92,7 +91,7 @@ render() {
       </header>
        
     </div>
-    );
+    )
   }
 
 }

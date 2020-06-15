@@ -26,10 +26,13 @@ export class GetRequest extends React.Component {
     const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery; 
   
     fetch(endpoint)
-      .then(response => response.json(), Error => console.log(Error.message))  
+      .then(response => response.json() /* Error => console.log(Error.message*/ )  
       .then(data => {
-          console.log(data); 
-          this.props.handleData(data); //passes it back to the App.js which updates its state  
+          if (data.Response === "False") {alert(data.Error)
+          } else {
+            console.log(data); 
+            this.props.handleData(data); //passes it back to the App.js which updates its state  
+          }
     })
   } 
 

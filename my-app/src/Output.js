@@ -10,8 +10,10 @@ export class Output extends React.Component {
 
     const movieArray = this.props.movieData ; // initially App passes 'null' as props.movieData 
     const x = this.props.x ; 
+    
 
     if (movieArray === null) {
+        console.log(movieArray)
         return ( 
         <div>
           <h3>How to search:</h3>
@@ -23,7 +25,7 @@ export class Output extends React.Component {
         </div> )
     } else {
       const shortenedArray = movieArray.slice(0,x) // This shortens the array to show the desired number of results 
-/*
+/*  
     let x = (this.props.x)-1
     let title = movieArray[x].Title;
     let year = movieArray[x].Year;
@@ -36,7 +38,7 @@ export class Output extends React.Component {
 
         <h5>Movie Title {index+1}: {movie.Title}</h5>
         <h5>Year: {movie.Year}</h5>
-        <img src={movie.Poster} alt="movie"/>
+        <img src={movie.Poster} alt="no image available"/>
       
       {/* <h5>Description: {movieData.Plot}</h5>  */}
       </div>
