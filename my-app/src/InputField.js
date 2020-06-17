@@ -7,13 +7,17 @@ import React from 'react';
 export class InputField extends React.Component {
 
   render() {
+    
+    let searchStatus = this.props.searchStatus; 
 
-    let options = []; 
+    if (!searchStatus) { 
+
+      let options = []; 
       for (let i = 1; i< 6; i++) { 
       options.push(<option key={i}>{i}</option>) 
-    }
+      }  
 
-    return ( 
+      return ( 
       <div>
       <br/>
       <label for="search"> Enter a keyword: </label>
@@ -30,9 +34,21 @@ export class InputField extends React.Component {
       </select>
       </div>
     ) 
+  } else {
+      return (
+        <div>
+          <br/>
+          <label for="sort"> Sort by: </label>
+          <select id="sort" name="sort" onChange={this.props.handleSort}>
+            <option value="Title">Title A-Z</option>
+            <option value="Year">Year (Oldest - Newest)</option>
+            <option value="imdbID">imdbID no.</option>
+          </select>
+        </div>
+      )
   }
 }
-
+}
 
 // Question: How do we get the <input/> field to pass its value on onChange? 
 // An input's value is passed back within an object: e.target.value 

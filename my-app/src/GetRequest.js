@@ -22,7 +22,7 @@ export class GetRequest extends React.Component {
     // 's=' returns 10 films, in format: Object containing Properties. One is Search whose Value is an Array. 
     //                                   The Array contains key-value pairs, each representing a film's info.
     //                                   { Search: [ 0:{Title: "Example", Year: "1990" ... }, 1:{}, 2:{}, 3:{} ], ...}
-    // To access the film Title we must e.Search. 
+    // Access the film Title via e.Search. 
     const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery; 
   
     fetch(endpoint)
@@ -31,19 +31,28 @@ export class GetRequest extends React.Component {
           if (data.Response === "False") {alert(data.Error)
           } else {
             console.log(data); 
-            this.props.handleData(data); //passes it back to the App.js which updates its state  
+            this.props.handleData(data);
           }
     })
   } 
 
-  render() {
+  render() { 
+    
+    let searchStatus = this.props.searchStatus;
 
-    return ( 
-      <div>
-      <button className="Search" onClick={this.handleClick} >Search</button> 
-      </div>
-    ) 
+    if (!searchStatus) {
+      return ( 
+        <div>
+          <button className="Search" onClick={this.handleClick} >Search</button> 
+        </div>
+      ) 
+    } else if (searchStatus) {
+      return (
+        <div>
+            <br/>
+            <button className="Refresh" onClick={()=>window.location.reload(false)}>Start Over</button>
+        </div>
+      )
+    }
   }
 }
-
-

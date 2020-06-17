@@ -16,11 +16,20 @@
  *    - We can now turn them all into function components OR stateless functional components
  * 
  * The current question:
- *    We can return a list of films, select the number of search results via dropdown menu (max 5)
- *    When the use is performing a search, we can log how long the search took..?
- *    meaning also any 'Submit' clicks are ignored, how can we disable the input field? 
+ *    We can return a list of films, select the number of search results via dropdown menu.
+ *    When the user initially loads the website, there is placeholder text that describes how to search.
+ *    If no film is found, an error message shows. (Test using 'nofilm')
  * 
- *    If no film is found, an error message can show. 
+ * We can introduce a function to search by year 
+ * - we need to push the nested objects into an array of objects, we can use sort() to sort them by year or title 
+ * How can we sort films by alphabetical order or release date? 
+ * When the user performs a search, the input field/button should be disabled, and a progress spinner should be displayed
+ * 
+Write a unit test for sorting films alphabetically/by release date
+When the use is performing a search, we can log how long the search took..?
+ * 
+ * 
+ *    
  */
 import React from 'react';
 import logo from './logo.svg';
@@ -37,11 +46,14 @@ constructor(props) {
   this.state = { 
     keyword: null, 
     movie: null,
-    number: 1
+    number: 1,
+    searchStatus: false,
+    sort: null, 
   }
   this.handleChange = this.handleChange.bind(this)
   this.handleData = this.handleData.bind (this)
   this.handleNumber = this.handleNumber.bind (this)
+  this.handleSort = this.handleSort.bind (this)
 }
 
 handleChange(e) {
@@ -55,26 +67,45 @@ handleNumber(e) {
 }
 
 handleData(e) {
-  const movieData = e.Search; 
-  this.setState({movie: movieData}); // Films as an Array of key-value pairs [ {}, {}, {}]
-  }
-  
+  const movieData = e.Search; // Films as an Array of key-value pairs [ {}, {}, {}] 
+  this.setState({
+    movie: movieData,
+    searchStatus: true
+  });
+}  
+
+handleSort(e) {
+  console.log(this.state.sort)
+  const sortCriteria = e.target.value;
+  console.log(sortCriteria);
+  this.setState({sort: sortCriteria})
+  console.log(this.state.sort); // Our problem is the update state is a bit laggy. 
+}
+
 render() {
 
   return (
     <div className="App">
       <InputField 
         onChange={this.handleChange} 
-        handleNumber={this.handleNumber}/>
+        handleNumber={this.handleNumber}
+        searchStatus={this.state.searchStatus}
+        handleSort={this.handleSort}
+      />
 
       <GetRequest 
         keyword={this.state.keyword}
         handleData={this.handleData}
+        searchStatus={this.state.searchStatus}
       />
       <Output 
         x = {this.state.number}
         movieData={this.state.movie}
-        keyword={this.state.keyword}/>
+        keyword={this.state.keyword}
+        sortCriteria={this.state.sort}
+        searchStatus={this.state.searchStatus}
+      />
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
