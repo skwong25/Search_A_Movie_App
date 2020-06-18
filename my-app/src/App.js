@@ -15,18 +15,22 @@
  *    - Storing the state in App, means the others are Controlled Components
  *    - We can now turn them all into function components OR stateless functional components
  * 
+ * Note on API request query string parameters:
+ * 't=' returns a single film 
+ * 's=' returns 10 films, in format: Object containing Properties. One is Search whose Value is an Array.
+ * The Array contains key-value pairs, each representing a film's info.
+ * { Search: [ 0:{Title: "Example", Year: "1990" ... }, 1:{}, 2:{}, 3:{} ], ...}
+ * Access the film Title via e.Search. 
+ * 
  * The current question:
  *    We can return a list of films, select the number of search results via dropdown menu.
  *    When the user initially loads the website, there is placeholder text that describes how to search.
  *    If no film is found, an error message shows. (Test using 'nofilm')
- * 
- * We can introduce a function to search by year 
- * - we need to push the nested objects into an array of objects, we can use sort() to sort them by year or title 
- * How can we sort films by alphabetical order or release date? 
+ *    We can sort films by alphabetical order, release year or imbd id no.
+ *  
  * When the user performs a search, the input field/button should be disabled, and a progress spinner should be displayed
- * 
-Write a unit test for sorting films alphabetically/by release date
-When the use is performing a search, we can log how long the search took..?
+ * Write a unit test for sorting films alphabetically/by release date
+ * When the use is performing a search, we can log how long the search took..?
  * 
  * 
  *    
@@ -35,7 +39,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import {InputField} from './InputField';
-import {GetRequest} from './GetRequest';
+import {SubmitSearch} from './SubmitSearch';
+import {SortResults} from './SortResults';
 import {Output} from './Output';
 
 class App extends React.Component {
@@ -46,27 +51,37 @@ constructor(props) {
   this.state = { 
     keyword: null, 
     movie: null,
-    number: 1,
+    results: 1,
     searchStatus: false,
     sort: null, 
   }
-  this.handleChange = this.handleChange.bind(this)
-  this.handleData = this.handleData.bind (this)
-  this.handleNumber = this.handleNumber.bind (this)
-  this.handleSort = this.handleSort.bind (this)
+  this.updateKeyword = this.updateKeyword.bind(this)
+  this.updateMovie = this.updateMovie.bind (this)
+  this.updateNoOfResults = this.updateNoOfResults.bind (this)
+  this.updateSortCriteria = this.updateSortCriteria.bind (this)
+  this.fetchRequest = this.fetchRequest.bind (this)
 }
 
-handleChange(e) {
+/*
+shouldComponentUpdate(nextProps, nextState) {
+  if (nextState.searchStatus === false) {
+    return false;
+  } else {
+    return true; 
+  }
+} */
+
+updateKeyword(e) {
   const keyword = e.target.value
   this.setState({ keyword: keyword });
 }
 
-handleNumber(e) {
+updateNoOfResults(e) {
   const number = e.target.value
-  this.setState( {number: number});
+  this.setState( {results: number});
 }
 
-handleData(e) {
+updateMovie(e) {
   const movieData = e.Search; // Films as an Array of key-value pairs [ {}, {}, {}] 
   this.setState({
     movie: movieData,
@@ -74,34 +89,54 @@ handleData(e) {
   });
 }  
 
-handleSort(e) {
-  console.log(this.state.sort)
+updateSortCriteria(e) {
   const sortCriteria = e.target.value;
-  console.log(sortCriteria);
   this.setState({sort: sortCriteria})
-  console.log(this.state.sort); // Our problem is the update state is a bit laggy. 
 }
+
+fetchRequest() { 
+  const wordQuery = this.state.keyword;
+  const apiKey = '9990ead4';
+  const url = 'http://www.omdbapi.com/?';
+  const queryParams = 's='; 
+ 
+  const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery; 
+
+  fetch(endpoint)
+    .then(response => response.json() /* Error => console.log(Error.message*/ )  
+    .then(data => {
+        if (data.Response === "False") {alert(data.Error)
+        } else {
+          console.log(data); 
+          this.updateMovie(data);
+        }
+  })
+} 
+
 
 render() {
 
   return (
     <div className="App">
       <InputField 
-        onChange={this.handleChange} 
-        handleNumber={this.handleNumber}
         searchStatus={this.state.searchStatus}
-        handleSort={this.handleSort}
+        updateKeyword={this.updateKeyword} 
+        updateNoOfResults={this.updateNoOfResults}
+        
       />
 
-      <GetRequest 
-        keyword={this.state.keyword}
-        handleData={this.handleData}
+      <SortResults
         searchStatus={this.state.searchStatus}
+        updateSortCriteria={this.updateSortCriteria}
+      />
+
+      <SubmitSearch
+        searchStatus={this.state.searchStatus}
+        handleClick={this.fetchRequest}
       />
       <Output 
-        x = {this.state.number}
+        noOfResults = {this.state.results}
         movieData={this.state.movie}
-        keyword={this.state.keyword}
         sortCriteria={this.state.sort}
         searchStatus={this.state.searchStatus}
       />
