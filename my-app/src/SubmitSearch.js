@@ -5,17 +5,15 @@
 
 import React from 'react';
 
-export class SubmitSearch extends React.Component {
-
-  render() { 
+export const SubmitSearch = (props) => {
     
     console.log("3. I render search and refresh buttons");
-    let searchStatus = this.props.searchStatus;
+    let searchStatus = props.searchStatus;
 
     if (!searchStatus) {
       return ( 
         <div>
-          <button className="Search" onClick={this.props.handleClick} >Search</button> 
+          <button className="Search" onClick={props.handleClick} >Search</button> 
         </div>
       ) 
     } else if (searchStatus) {
@@ -27,4 +25,3 @@ export class SubmitSearch extends React.Component {
       )
     }
   }
-}

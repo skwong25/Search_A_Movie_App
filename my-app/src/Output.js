@@ -4,22 +4,20 @@
  */
 import React from 'react';
 
-export class Output extends React.Component {
-
-  render() {
+export const Output = (props) => {
 
     console.log("4. I sort and display results");
-    let searchStatus = this.props.searchStatus
-    const movieArray = this.props.movieData; 
+    let searchStatus = props.searchStatus
+    const movieArray = props.movieData; 
      
     if (!searchStatus) {   
         return null;
     } 
 
-    const noOfResults = this.props.noOfResults;
+    const noOfResults = props.noOfResults;
     let shortenedArray = movieArray.slice(0, noOfResults ) 
     let newArray = shortenedArray; 
-    const sortCriteria = this.props.sortCriteria;
+    const sortCriteria = props.sortCriteria;
 
     if (sortCriteria) {
       
@@ -56,5 +54,4 @@ export class Output extends React.Component {
       <ol>{movies}</ol>
     </div>
   )
-  }
 }

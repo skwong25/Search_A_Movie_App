@@ -4,12 +4,10 @@
  */
 import React from 'react';
 
-export class InputField extends React.Component {
+export const InputField = (props) => {
 
-  render() {
-    
     console.log("1. I am an input field and dropdown!");
-    let searchStatus = this.props.searchStatus; 
+    let searchStatus = props.searchStatus; 
 
     if (!searchStatus) {  
 
@@ -34,17 +32,16 @@ export class InputField extends React.Component {
         type="text" 
         name="search" 
         id="search" 
-        onChange={this.props.updateKeyword}>
+        onChange={props.updateKeyword}>
       </input>
       <br/>
       <label htmlFor="number">Number of search results: </label>
-      <select id="number" name="number" onChange={this.props.updateNoOfResults}>
+      <select id="number" name="number" onChange={props.updateNoOfResults}>
         {noOfResults}
       </select>
       </div>
       )
     } else {
       return null;
-    }
   }
 }

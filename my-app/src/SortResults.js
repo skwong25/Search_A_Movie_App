@@ -4,12 +4,10 @@
  */
 import React from 'react';
 
-export class SortResults extends React.Component {
+export const SortResults = (props) => {
 
-  render() {
-    
     console.log("2. I let you decide how to sort results");
-    let searchStatus = this.props.searchStatus; 
+    let searchStatus = props.searchStatus; 
 
     if (searchStatus) {  
 
@@ -17,7 +15,7 @@ export class SortResults extends React.Component {
         <div>
           <br/>
           <label htmlFor="sort"> Sort by: </label>
-          <select id="sort" name="sort" onChange={this.props.updateSortCriteria}>
+          <select id="sort" name="sort" onChange={props.updateSortCriteria}>
             <option value="Title">Title A-Z</option>
             <option value="Year">Year (Oldest - Newest)</option>
             <option value="imdbID">imdbID no.</option>
@@ -27,5 +25,4 @@ export class SortResults extends React.Component {
   } else {
     return null;
   }
-}
 }
