@@ -1,15 +1,14 @@
 /**
- * Child Class 2 - renders dropdown for selecting sort category  
- * Stateless Component Class (could be turned into a function component )
+ * Child 2 - renders dropdown for selecting sort category  
+ * Stateless Functional Component 
  */
 import React from 'react';
 
 export const SortResults = (props) => {
 
     console.log("2. I let you decide how to sort results");
-    let searchStatus = props.searchStatus; 
 
-    if (searchStatus) {  
+    if (props.searchStatus) {  
 
       return (
         <div>

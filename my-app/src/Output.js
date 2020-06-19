@@ -7,13 +7,10 @@ import React from 'react';
 export const Output = (props) => {
 
     console.log("4. I sort and display results");
-    let searchStatus = props.searchStatus
-    const movieArray = props.movieData; 
      
-    if (!searchStatus) {   
-        return null;
-    } 
+    if (props.searchStatus && props.movieData) {
 
+    const movieArray = props.movieData; 
     const noOfResults = props.noOfResults;
     let shortenedArray = movieArray.slice(0, noOfResults ) 
     let newArray = shortenedArray; 
@@ -21,7 +18,7 @@ export const Output = (props) => {
 
     if (sortCriteria) {
       
-      console.log("searchStatus: " + searchStatus + " / Sort criteria: " + sortCriteria)
+      console.log("searchStatus: " + props.searchStatus + " / Sort criteria: " + sortCriteria)
 
       const compare = (a,b) => {
 
@@ -49,9 +46,12 @@ export const Output = (props) => {
     )
     })
   
-  return (
-    <div>
-      <ol>{movies}</ol>
-    </div>
-  )
-}
+    return (
+      <div>
+        <ol>{movies}</ol>
+      </div>
+      )
+    } else {   
+      return null; 
+  }
+}   
