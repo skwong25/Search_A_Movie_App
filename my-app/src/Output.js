@@ -1,32 +1,23 @@
 /**
- * Child Class 3 - to handle the output text 
+ * Child Class 3 - formats (sorts/reduces) data and displays data
  * Stateless Component Class (could be turned into a function component )
  */
 import React from 'react';
 
-export class Output extends React.Component {
+export const Output = (props) => {
 
-  render() {
-
-    let searchStatus = this.props.searchStatus
-    const movieArray = this.props.movieData; 
+    console.log("4. I sort and display results");
+    let searchStatus = props.searchStatus
+    const movieArray = props.movieData; 
      
     if (!searchStatus) {   
-        return ( 
-        <div>
-          <h3>How to search:</h3>
-        <ol>
-         <li>Enter keyword</li>
-         <li>Select number of search results</li>
-         <li>Click Search</li>
-        </ol>
-        </div> )
+        return null;
     } 
 
-    const x = this.props.x;
-    let shortenedArray = movieArray.slice(0,x) // reflects no. of search results
+    const noOfResults = props.noOfResults;
+    let shortenedArray = movieArray.slice(0, noOfResults ) 
     let newArray = shortenedArray; 
-    const sortCriteria = this.props.sortCriteria;
+    const sortCriteria = props.sortCriteria;
 
     if (sortCriteria) {
       
@@ -48,11 +39,11 @@ export class Output extends React.Component {
         
     const movies = newArray.map((movie, index) => { 
     return ( 
-      <div>
+      <div key={movie.imdbID}>
 
         <h5>Movie {index+1}: {movie.Title}</h5>
         <h5>Year: {movie.Year} &nbsp; IMBD ID. : {movie.imdbID}</h5>
-        <img src={movie.Poster} alt="no image available"/>
+        <img src={movie.Poster} alt="no graphic available"/>
       
       </div>
     )
@@ -63,5 +54,4 @@ export class Output extends React.Component {
       <ol>{movies}</ol>
     </div>
   )
-  }
 }
