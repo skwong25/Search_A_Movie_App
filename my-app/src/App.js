@@ -38,10 +38,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+
 import {InputField} from './InputField';
 import {SubmitSearch} from './SubmitSearch';
 import {SortResults} from './SortResults';
+import {FetchRequest} from './FetchRequest';
 import {Output} from './Output';
+import {Loading} from './Loading';
 
 class App extends React.Component {
 
@@ -55,11 +58,13 @@ constructor(props) {
     searchStatus: false,
     sort: null, 
   }
+
   this.updateKeyword = this.updateKeyword.bind(this)
   this.updateMovie = this.updateMovie.bind (this)
   this.updateNoOfResults = this.updateNoOfResults.bind (this)
   this.updateSortCriteria = this.updateSortCriteria.bind (this)
-  this.fetchRequest = this.fetchRequest.bind (this)
+  this.toggleSearchStatus = this.toggleSearchStatus.bind (this)
+
 }
 
 /*
@@ -82,18 +87,25 @@ updateNoOfResults(e) {
 }
 
 updateMovie(e) {
+  console.log(e.Search); 
   const movieData = e.Search; // Films as an Array of key-value pairs [ {}, {}, {}] 
   this.setState({
-    movie: movieData,
-    searchStatus: true
+    movie: movieData
   });
 }  
+
+toggleSearchStatus() {
+  this.setState({
+    searchStatus: true
+  });
+}
 
 updateSortCriteria(e) {
   const sortCriteria = e.target.value;
   this.setState({sort: sortCriteria})
 }
 
+/*
 fetchRequest() { 
   const wordQuery = this.state.keyword;
   const apiKey = '9990ead4';
@@ -103,7 +115,7 @@ fetchRequest() {
   const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery; 
 
   fetch(endpoint)
-    .then(response => response.json() /* Error => console.log(Error.message*/ )  
+    .then(response => response.json())  
     .then(data => {
         if (data.Response === "False") {alert(data.Error)
         } else {
@@ -112,12 +124,14 @@ fetchRequest() {
         }
   })
 } 
-
+*/
 
 render() {
 
-  return (
+    return (
+
     <div className="App">
+
       <InputField 
         searchStatus={this.state.searchStatus}
         updateKeyword={this.updateKeyword} 
@@ -132,12 +146,23 @@ render() {
 
       <SubmitSearch
         searchStatus={this.state.searchStatus}
-        handleClick={this.fetchRequest}
+        handleClick={this.toggleSearchStatus} 
       />
+
+      <FetchRequest
+        searchStatus={this.state.searchStatus}
+        keyword={this.state.keyword}
+        updateMovie={this.updateMovie}
+      />
+
       <Output 
         noOfResults = {this.state.results}
         movieData={this.state.movie}
         sortCriteria={this.state.sort}
+        searchStatus={this.state.searchStatus}
+      />
+
+      <Loading
         searchStatus={this.state.searchStatus}
       />
 

@@ -1,15 +1,14 @@
 /**
- * Child Class 1 - renders input field and dropdown for selecting no. of search results
- * Stateless Component Class (could be turned into a function component )
+ * Child 1 - renders input field and dropdown for selecting no. of search results
+ * Stateless Functional Component 
  */
 import React from 'react';
 
 export const InputField = (props) => {
 
     console.log("1. I am an input field and dropdown!");
-    let searchStatus = props.searchStatus; 
 
-    if (!searchStatus) {  
+    if (!props.searchStatus) {  
 
       let noOfResults = []; 
       for (let n = 1; n< 6; n++) { 
