@@ -39,7 +39,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import {InputField} from './InputField';
+import InputField from './InputField';
 import {SubmitSearch} from './SubmitSearch';
 import {SortResults} from './SortResults';
 import FetchRequest from './FetchRequest';
