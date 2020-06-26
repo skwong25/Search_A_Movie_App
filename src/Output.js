@@ -4,12 +4,14 @@
  */
 import React from 'react';
 
-export const Output = (props) => {
+const Output = (props) => {
 
     console.log("4. I sort and display results");
+    console.log("searchStatus:" + props.searchStatus);
      
     if (props.searchStatus && props.movieData) {
 
+    console.log("do we get this far?")
     const movieArray = props.movieData; 
     const noOfResults = props.noOfResults;
     let shortenedArray = movieArray.slice(0, noOfResults ) 
@@ -34,7 +36,7 @@ export const Output = (props) => {
       newArray = shortenedArray.sort(compare); 
     }
         
-    const movies = newArray.map((movie, index) => { 
+    const movies = newArray.map((movie, index) => {  
     return ( 
       <div key={movie.imdbID}>
 
@@ -48,6 +50,7 @@ export const Output = (props) => {
   
     return (
       <div>
+        {/* <button>BYE</button> */}
         <ol>{movies}</ol>
       </div>
       )
@@ -55,3 +58,5 @@ export const Output = (props) => {
       return null; 
   }
 }   
+
+export default Output;

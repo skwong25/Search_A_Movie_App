@@ -3,7 +3,7 @@
  * Functional Component 
  */
 
-export const FetchRequest = (props) => {
+const FetchRequest = (props) => {
 
 console.log(props.keyword);
 console.log(props.searchStatus);
@@ -24,9 +24,12 @@ if (props.searchStatus === true) {
           alert(data.Error);;
         } else {
           console.log("did we get here?");
-          props.updateMovie(data);
+          props.updateMovie(data); 
         }
     })
+    
   }
-  return null
-}
+  return null 
+};
+
+export default FetchRequest;

@@ -42,8 +42,8 @@ import './App.css';
 import {InputField} from './InputField';
 import {SubmitSearch} from './SubmitSearch';
 import {SortResults} from './SortResults';
-import {FetchRequest} from './FetchRequest';
-import {Output} from './Output';
+import FetchRequest from './FetchRequest';
+import Output from './Output';
 import {Loading} from './Loading';
 
 class App extends React.Component {
