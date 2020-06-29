@@ -56,7 +56,9 @@ test('test3: renders label describing the input field', () => {
 // If its grabbed Input field, then it has no text. So this would be correct. 
 // If it's grabbed the Label, it DOES have text. So this would be incorrect.
 
+/*
 https://css-tricks.com/getting-started-with-react-testing-library/
 https://medium.com/@jero786/react-testing-library-pro-tips-eba7181eb6fb
 https://testing-library.com/docs/guide-which-query
 https://www.freecodecamp.org/news/testing-react-hooks/
+*/
