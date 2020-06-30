@@ -40,7 +40,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import InputField from './InputField';
-import {SubmitSearch} from './SubmitSearch';
+import SubmitSearch from './SubmitSearch';
 import {SortResults} from './SortResults';
 import FetchRequest from './FetchRequest';
 import Output from './Output';
@@ -95,9 +95,9 @@ updateMovie(e) {
 }  
 
 toggleSearchStatus() {
-  this.setState({
-    searchStatus: true
-  });
+  if (this.state.keyword) {
+    this.setState({searchStatus: true});
+  }
 }
 
 updateSortCriteria(e) {
@@ -160,26 +160,27 @@ render() {
         movieData={this.state.movie}
         sortCriteria={this.state.sort}
         searchStatus={this.state.searchStatus}
+        keyword={this.state.keyword}
       />
 
       <Loading
         searchStatus={this.state.searchStatus}
       />
 
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <header className="App-header"> */}
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        {/* <p> */}
+          {/* Edit <code>src/App.js</code> and save to reload. */}
+        {/* </p> */}
+        {/* <a */}
+          {/* className="App-link" */}
+          {/* href="https://reactjs.org" */}
+          {/* target="_blank" */}
+          {/* rel="noopener noreferrer" */}
+        {/* > */}
+          {/* Learn React */}
+        {/* </a> */}
+      {/* </header> */}
        
     </div>
     )

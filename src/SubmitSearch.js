@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-export const SubmitSearch = (props) => {
+const SubmitSearch = (props) => {
     
     console.log("3. I render search and refresh buttons");
 
@@ -19,8 +19,10 @@ export const SubmitSearch = (props) => {
       return (
         <div>
             <br/>
-            <button className="Refresh" onClick={()=>window.location.reload(false)}>Start Over</button>
+            <button className="Refresh" onClick={()=>window.location.reload(false)}>Refresh</button>
         </div>
       )
     }
   }
+
+export default SubmitSearch;

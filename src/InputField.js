@@ -26,7 +26,7 @@ const InputField = (props) => {
         </ol>
         </div> 
       <br/>
-      <label htmlFor="search"> Enter a keyword: </label>
+      <label htmlFor="search"> Keyword: </label>
       <input 
         type="text" 
         name="search"
@@ -35,7 +35,7 @@ const InputField = (props) => {
         onChange={props.updateKeyword}>
       </input>
       <br/>
-      <label htmlFor="number">Number of search results: </label>
+      <label htmlFor="number">Search results: </label>
       <select id="number" name="number" data-testid="dropdown" onChange={props.updateNoOfResults}>
         {noOfResults}
       </select>

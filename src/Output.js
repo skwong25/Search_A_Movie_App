@@ -35,28 +35,36 @@ const Output = (props) => {
       
       newArray = shortenedArray.sort(compare); 
     }
-        
+   
     const movies = newArray.map((movie, index) => {  
     return ( 
       <div key={movie.imdbID}>
 
         <h5>Movie {index+1}: {movie.Title}</h5>
+        <br/>
         <h5>Year: {movie.Year} &nbsp; IMBD ID. : {movie.imdbID}</h5>
         <img src={movie.Poster} alt="no graphic available"/>
       
       </div>
     )
     })
-  
+
     return (
       <div>
-        {/* <button>BYE</button> */}
         <ol>{movies}</ol>
       </div>
       )
     } else {   
-      return null; 
+      return (
+        <div>
+          <h5>the keyword is {props.keyword || '???'}</h5>
+          <h5>press submit to return {props.noOfResults} results</h5>
+        </div>
+      )
   }
 }   
 
 export default Output;
+
+// Actually it's because its going down the secondary 'else' route and returning the latter phrases
+// So no wonder it is not finding the movie data. 
