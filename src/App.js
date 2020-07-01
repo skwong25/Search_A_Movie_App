@@ -75,8 +75,10 @@ updateNoOfResults(e) {
 }
 
 updateSortCriteria(e) {
+  if (e) {
   const sortCriteria = e.target.value;
   this.setState({sort: sortCriteria})
+  }
 }
 
 fetchMovieData() {
@@ -120,6 +122,7 @@ render() {
       <SortResults
         searchStatus={this.state.isPerformingSearch}
         updateSortCriteria={this.updateSortCriteria}
+        disabled={ this.state.results === 1 }
       />
 
       <SubmitSearch

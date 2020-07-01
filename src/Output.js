@@ -16,11 +16,14 @@ const Output = (props) => {
     const noOfResults = props.noOfResults;
     let shortenedArray = movieArray.slice(0, noOfResults ) 
     let newArray = shortenedArray; 
-    const sortCriteria = props.sortCriteria;
 
-    if (sortCriteria) {
+    if (props.sortCriteria) {
+
+      let sortArray = props.sortCriteria.split(' ')
+      const sortCriteria = sortArray[0]; // Title , Year or Imbd
+      const order = sortArray[1]; // default ascending or descending 
       
-      console.log("searchStatus: " + props.searchStatus + " / Sort criteria: " + sortCriteria)
+      console.log("searchStatus: " + props.searchStatus + " / Sort criteria: " + sortCriteria + " order: " + order)
 
       const compare = (a,b) => {
 
@@ -30,6 +33,9 @@ const Output = (props) => {
         let comparison = 0;
         if (movieA > movieB) {comparison = 1;}
         else if (movieA < movieB) {comparison = -1;}
+
+        if (order === "descending") {comparison = comparison * -1};
+
         return comparison;
       }
       
