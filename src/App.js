@@ -46,106 +46,97 @@ import {Loading} from './Loading';
 
 class App extends React.Component {
 
-constructor(props) {
-  super(props);
+    constructor(props) {
+        super(props);
+        this.state = { 
+            keyword: null, 
+            movie: null,
+            results: 1,
+            isPerformingSearch: false,
+            sort: null, 
+        }
 
-  this.state = { 
-    keyword: null, 
-    movie: null,
-    results: 1,
-    isPerformingSearch: false,
-    sort: null, 
-  }
+        this.updateKeyword = this.updateKeyword.bind(this);
+        this.updateNoOfResults = this.updateNoOfResults.bind (this);
+        this.updateSortCriteria = this.updateSortCriteria.bind (this);
+        this.fetchMovieData = this.fetchMovieData.bind (this);
+    } 
 
-  this.updateKeyword = this.updateKeyword.bind(this);
-  this.updateNoOfResults = this.updateNoOfResults.bind (this);
-  this.updateSortCriteria = this.updateSortCriteria.bind (this);
-  this.fetchMovieData = this.fetchMovieData.bind (this);
+    updateKeyword(e) {
+        const keyword = e.target.value;
+        this.setState({keyword: keyword});
+    }
 
-}
+    updateNoOfResults(e) {
+        const number = e.target.value;
+        this.setState({results: number});
+    }
 
-updateKeyword(e) {
-  const keyword = e.target.value
-  this.setState({ keyword: keyword });
-}
+    updateSortCriteria(e) {
+        if (e) {
+            const sortCriteria = e.target.value;
+            this.setState({sort: sortCriteria});
+        }
+    }
 
-updateNoOfResults(e) {
-  const number = e.target.value
-  this.setState( {results: number});
-}
+    fetchMovieData() {
+        if (this.state.keyword) {
+            console.log("the search begins...with " + this.state.keyword)
+            const wordQuery = this.state.keyword;
+            const apiKey = '9990ead4';
+            const url = 'http://www.omdbapi.com/?';
+            const queryParams = 's='; 
+            const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery;
+             
+            fetch(endpoint);
+            .then(response => response.json());   
+            .then(data => {
+                if (data.Response === "False") { 
+                    alert(data.Error);
+                } else {
+                    console.log("did we get here?"); 
+                    const movieData = data.Search; // Films as an Array of key-value pairs [ {}, {}, {}] 
+                    this.setState({movie: movieData});
+                    this.setState({isPerformingSearch: true});
+                };
+            }) 
+        };
+    }
 
-updateSortCriteria(e) {
-  if (e) {
-  const sortCriteria = e.target.value;
-  this.setState({sort: sortCriteria})
-  }
-}
+    render() {
+        return (
+            <div className="App">
+                <InputField 
+                    searchStatus={this.state.isPerformingSearch}
+                    updateKeyword={this.updateKeyword} 
+                    updateNoOfResults={this.updateNoOfResults}
+                />
 
-fetchMovieData() {
-  if (this.state.keyword) {
-    
-    console.log("the search begins...with " + this.state.keyword)
-    const wordQuery = this.state.keyword;
-    const apiKey = '9990ead4';
-    const url = 'http://www.omdbapi.com/?';
-    const queryParams = 's='; 
-    const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery; 
+                <SortResults
+                    searchStatus={this.state.isPerformingSearch}
+                    updateSortCriteria={this.updateSortCriteria}
+                    disabled={this.state.results === 1}
+                />
 
-  fetch(endpoint)
-  .then(response => response.json())   
-  .then(data => {
-      if (data.Response === "False") { 
-        alert(data.Error);;
-      } else {
-        console.log("did we get here?"); 
-        const movieData = data.Search; // Films as an Array of key-value pairs [ {}, {}, {}] 
-        this.setState({movie: movieData})
-        this.setState({isPerformingSearch: true})
-      }
-    }) 
-  }
-}
+                <SubmitSearch
+                    searchStatus={this.state.isPerformingSearch}
+                    handleClick={this.fetchMovieData} 
+                />
 
-render() {
+                <Output 
+                    noOfResults={this.state.results}
+                    movieData={this.state.movie}
+                    sortCriteria={this.state.sort}
+                    searchStatus={this.state.isPerformingSearch}
+                    keyword={this.state.keyword}
+                />
 
-    return (
-
-    <div className="App">
-
-      <InputField 
-        searchStatus={this.state.isPerformingSearch}
-        updateKeyword={this.updateKeyword} 
-        updateNoOfResults={this.updateNoOfResults}
-        
-      />
-
-      <SortResults
-        searchStatus={this.state.isPerformingSearch}
-        updateSortCriteria={this.updateSortCriteria}
-        disabled={ this.state.results === 1 }
-      />
-
-      <SubmitSearch
-        searchStatus={this.state.isPerformingSearch}
-        handleClick={ this.fetchMovieData } 
-      />
-
-      <Output 
-        noOfResults = {this.state.results}
-        movieData={this.state.movie}
-        sortCriteria={this.state.sort}
-        searchStatus={this.state.isPerformingSearch}
-        keyword={this.state.keyword}
-      />
-
-      <Loading
-        searchStatus={this.state.isPerformingSearch}
-      />
-
-    </div>
-    )
-  }
-
+                <Loading
+                searchStatus={this.state.isPerformingSearch}
+                />
+            </div>
+        );
+    }
 }
 
 export default App;

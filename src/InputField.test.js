@@ -21,88 +21,62 @@ import Output from './Output';
 
 
 describe("Input field", () => {
+    test('test 1: renders dropdown menu of numbers 1-5', () => {
+        const { getByRole } = render(<InputField/>);
+        let element = getByRole( "option", {name: "1"}) ;
+        expect(element.textContent).toBe("1");
 
-test('test 1: renders dropdown menu of numbers 1-5', () => {
-  const { getByRole } = render(<InputField/>);
-  let element = getByRole("option", {name: "1"});
-  expect(element.textContent).toBe("1")
+        element = getByRole("option", {name: "2"});
+        expect(element.textContent).toBe("2")
 
-  element = getByRole("option", {name: "2"});
-  expect(element.textContent).toBe("2")
+        element = getByRole("option", {name: "3"});
+        expect(element.textContent).toBe("3")
 
-  element = getByRole("option", {name: "3"});
-  expect(element.textContent).toBe("3")
+        element = getByRole("option", {name: "4"});
+        expect(element.textContent).toBe("4")
 
-  element = getByRole("option", {name: "4"});
-  expect(element.textContent).toBe("4")
+        element = getByRole("option", {name: "5"});
+        expect(element.textContent).toBe("5")
+    });
 
-  element = getByRole("option", {name: "5"});
-  expect(element.textContent).toBe("5")
+    test('test 1.1: renders dropdown menu of 5 options', () => {
+        const { getByTestId } = render(<InputField/>);
+        const element = getByTestId("dropdown");
+        expect(element.children.length).toBe(5);
+    });
+
+    test('test 1.2: selecting a dropdown option updates Output message', () => {
+        render(
+            <App>
+            <InputField/>
+            <Output/>
+            </App>
+        );
+        let element = screen.getByLabelText(/Search results/i);
+        fireEvent.change(element, {target: {value: 5}}); 
+        expect(screen.getByText(/press submit to return/i).textContent).toBe("press submit to return 5 results");
+    });
 });
-
-test('test 1.1: renders dropdown menu of 5 options', () => {
-  const { getByTestId } = render(<InputField/>);
-  const element = getByTestId("dropdown")
-  expect(element.children.length).toBe(5);
-});
-
-/*
-test('test 1.2: logs to console the dropdown menu', () => {
-  render(<InputField/>);
-  screen.debug(screen.getByTestId("dropdown")); 
-});
-*/
-
-test('test 1.2: selecting a dropdown option updates Output message', () => {
-  render(<App>
-         <InputField/>
-         <Output/>
-         </App>);
- let element = screen.getByLabelText(/Search results/i);
- fireEvent.change(element, {target: {value: 5}}) 
- expect(screen.getByText(/press submit to return/i).textContent).toBe("press submit to return 5 results");
-
-  });
-})
-
-//  ----------------------------------
 
 describe("Numbers dropdown", () => {
+    test('test 2: renders an empty text input field', () => {
+        const { getByLabelText } = render(<InputField/>);
+        let element = getByLabelText(/Keyword/i);
+        expect(element.textContent).toBe("")
+        expect(element).toHaveAttribute('type', 'text')
+    });
 
-test('test 2: renders an empty text input field', () => {
-  const { getByLabelText } = render(<InputField/>);
-  let element = getByLabelText(/Keyword/i);
-  expect(element.textContent).toBe("")
-  expect(element).toHaveAttribute('type', 'text')
+    test('test 2.1: entering a word into input field updates the Output message', () => {
+      render(
+          <App>
+          <InputField/>
+          <Output/>
+          </App>
+      );
+    let element = screen.getByLabelText(/Keyword/i);
+    fireEvent.change(element, {target: {value: 'notebook'}}) // otherwise accessed via event.target.value
+    expect(screen.getByText(/the keyword is/i).textContent).toBe("the keyword is notebook");
+    });
 });
-
-/*  I can refactor the above using screen as an alternative to render methods:
-
-test('test 3.2: testing screen as an alternative to render', () => {
-  render(<InputField/>);
-  let element = screen.getByLabelText(/Enter/i);
-  expect(element.textContent).toBe("");
-})
-
-or:
-
-test('test 3.3 testing screen as an alternative to render', () => {
-  render(<InputField/>);
-  expect(screen.getByLabelText(/Enter/i).textContent).toBe("");
-})
-
-*/
-
-test('test 2.1: entering a word into input field updates the Output message', () => {
-  render(<App>
-         <InputField/>
-         <Output/>
-         </App>);
- let element = screen.getByLabelText(/Keyword/i);
- fireEvent.change(element, {target: {value: 'notebook'}}) // otherwise accessed via event.target.value
- expect(screen.getByText(/the keyword is/i).textContent).toBe("the keyword is notebook");
-
- });
-})
 
 //  ----------------------------------
