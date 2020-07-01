@@ -7,9 +7,9 @@ import React from 'react';
 const Output = (props) => {
 
     console.log("4. I sort and display results");
-    console.log("searchStatus:" + props.searchStatus);
+    console.log("searchStatus:" + props.searchStatus + " keyword: " + props.keyword);
      
-    if (props.searchStatus && props.movieData) {
+    if (props.movieData) {
 
     console.log("do we get this far?")
     const movieArray = props.movieData; 
@@ -40,9 +40,9 @@ const Output = (props) => {
     return ( 
       <div key={movie.imdbID}>
 
-        <h5>Movie {index+1}: {movie.Title}</h5>
+        <h5>Movie {index+1}: {movie.Title || "N/A"}</h5>
         <br/>
-        <h5>Year: {movie.Year} &nbsp; IMBD ID. : {movie.imdbID}</h5>
+        <h5>Year: {movie.Year || "N/A" } &nbsp; IMBD ID.: {movie.imdbID || "N/A" }</h5>
         <img src={movie.Poster} alt="no graphic available"/>
       
       </div>
@@ -65,6 +65,3 @@ const Output = (props) => {
 }   
 
 export default Output;
-
-// Actually it's because its going down the secondary 'else' route and returning the latter phrases
-// So no wonder it is not finding the movie data. 

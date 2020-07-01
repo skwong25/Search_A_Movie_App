@@ -6,13 +6,11 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
 import SubmitSearch from './SubmitSearch';
 
 test( 'Renders Search button if searchStatus is false', () => {
-  render(<App>
-        <SubmitSearch/>
-        </App>);
+  render(<SubmitSearch/>);
+
   let mrButton = screen.getByRole("button", {name:"Search"});
   expect(mrButton).toBeInTheDocument();
 })

@@ -36,13 +36,11 @@
  *    
  */
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import InputField from './InputField';
 import SubmitSearch from './SubmitSearch';
 import {SortResults} from './SortResults';
-import FetchRequest from './FetchRequest';
 import Output from './Output';
 import {Loading} from './Loading';
 
@@ -55,26 +53,16 @@ constructor(props) {
     keyword: null, 
     movie: null,
     results: 1,
-    searchStatus: false,
+    isPerformingSearch: false,
     sort: null, 
   }
 
-  this.updateKeyword = this.updateKeyword.bind(this)
-  this.updateMovie = this.updateMovie.bind (this)
-  this.updateNoOfResults = this.updateNoOfResults.bind (this)
-  this.updateSortCriteria = this.updateSortCriteria.bind (this)
-  this.toggleSearchStatus = this.toggleSearchStatus.bind (this)
+  this.updateKeyword = this.updateKeyword.bind(this);
+  this.updateNoOfResults = this.updateNoOfResults.bind (this);
+  this.updateSortCriteria = this.updateSortCriteria.bind (this);
+  this.fetchMovieData = this.fetchMovieData.bind (this);
 
 }
-
-/*
-shouldComponentUpdate(nextProps, nextState) {
-  if (nextState.searchStatus === false) {
-    return false;
-  } else {
-    return true; 
-  }
-} */
 
 updateKeyword(e) {
   const keyword = e.target.value
@@ -86,45 +74,35 @@ updateNoOfResults(e) {
   this.setState( {results: number});
 }
 
-updateMovie(e) {
-  console.log(e.Search); 
-  const movieData = e.Search; // Films as an Array of key-value pairs [ {}, {}, {}] 
-  this.setState({
-    movie: movieData
-  });
-}  
-
-toggleSearchStatus() {
-  if (this.state.keyword) {
-    this.setState({searchStatus: true});
-  }
-}
-
 updateSortCriteria(e) {
   const sortCriteria = e.target.value;
   this.setState({sort: sortCriteria})
 }
 
-/*
-fetchRequest() { 
-  const wordQuery = this.state.keyword;
-  const apiKey = '9990ead4';
-  const url = 'http://www.omdbapi.com/?';
-  const queryParams = 's='; 
- 
-  const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery; 
+fetchMovieData() {
+  if (this.state.keyword) {
+    
+    console.log("the search begins...with " + this.state.keyword)
+    const wordQuery = this.state.keyword;
+    const apiKey = '9990ead4';
+    const url = 'http://www.omdbapi.com/?';
+    const queryParams = 's='; 
+    const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery; 
 
   fetch(endpoint)
-    .then(response => response.json())  
-    .then(data => {
-        if (data.Response === "False") {alert(data.Error)
-        } else {
-          console.log(data); 
-          this.updateMovie(data);
-        }
-  })
-} 
-*/
+  .then(response => response.json())   
+  .then(data => {
+      if (data.Response === "False") { 
+        alert(data.Error);;
+      } else {
+        console.log("did we get here?"); 
+        const movieData = data.Search; // Films as an Array of key-value pairs [ {}, {}, {}] 
+        this.setState({movie: movieData})
+        this.setState({isPerformingSearch: true})
+      }
+    }) 
+  }
+}
 
 render() {
 
@@ -133,55 +111,34 @@ render() {
     <div className="App">
 
       <InputField 
-        searchStatus={this.state.searchStatus}
+        searchStatus={this.state.isPerformingSearch}
         updateKeyword={this.updateKeyword} 
         updateNoOfResults={this.updateNoOfResults}
         
       />
 
       <SortResults
-        searchStatus={this.state.searchStatus}
+        searchStatus={this.state.isPerformingSearch}
         updateSortCriteria={this.updateSortCriteria}
       />
 
       <SubmitSearch
-        searchStatus={this.state.searchStatus}
-        handleClick={this.toggleSearchStatus} 
-      />
-
-      <FetchRequest
-        searchStatus={this.state.searchStatus}
-        keyword={this.state.keyword}
-        updateMovie={this.updateMovie}
+        searchStatus={this.state.isPerformingSearch}
+        handleClick={ this.fetchMovieData } 
       />
 
       <Output 
         noOfResults = {this.state.results}
         movieData={this.state.movie}
         sortCriteria={this.state.sort}
-        searchStatus={this.state.searchStatus}
+        searchStatus={this.state.isPerformingSearch}
         keyword={this.state.keyword}
       />
 
       <Loading
-        searchStatus={this.state.searchStatus}
+        searchStatus={this.state.isPerformingSearch}
       />
 
-      {/* <header className="App-header"> */}
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        {/* <p> */}
-          {/* Edit <code>src/App.js</code> and save to reload. */}
-        {/* </p> */}
-        {/* <a */}
-          {/* className="App-link" */}
-          {/* href="https://reactjs.org" */}
-          {/* target="_blank" */}
-          {/* rel="noopener noreferrer" */}
-        {/* > */}
-          {/* Learn React */}
-        {/* </a> */}
-      {/* </header> */}
-       
     </div>
     )
   }

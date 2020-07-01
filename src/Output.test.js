@@ -18,14 +18,30 @@ import Output from './Output';
 
 test('test1 - renders movie name, year, Imdb ID and an image', () => {
   
-  render( <Output searchStatus="true" movieData={[{ Title: "Pocahontas", Year: "1990", imdbID: "012345" }]} /> );
+  render( <Output searchStatus="true" movieData={[{ Title: "Pocahontas", Year: "1990", imdbID: "012345", Poster: "image.jpg" }]} /> );
   // screen.debug();
 
     let element = screen.getByText(/movie/i);
     expect(element.textContent).toBe("Movie 1: Pocahontas");
     
     element = screen.getByText(/year/i)
-    expect(element.textContent).toBe("Year: 1990   IMBD ID. : 012345");
+    expect(element.textContent).toBe("Year: 1990   IMBD ID.: 012345");
+    
+    element = screen.getByAltText("no graphic available");
+    expect(element).toBeInTheDocument();
+
+});
+
+test('test1.1 - renders "N/A" if any property value in the API response is missing', () => {
+  
+  render( <Output searchStatus="true" movieData={[{ Title: null, Year: null, imdbID: null, Poster: null }]} /> );
+  // screen.debug();
+
+    let element = screen.getByText(/movie/i);
+    expect(element.textContent).toBe("Movie 1: N/A");
+    
+    element = screen.getByText(/year/i)
+    expect(element.textContent).toBe("Year: N/A   IMBD ID.: N/A");
     
     element = screen.getByAltText("no graphic available");
     expect(element).toBeInTheDocument();
