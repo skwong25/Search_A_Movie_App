@@ -4,12 +4,14 @@
  */
 import React from 'react';
 
-export const Output = (props) => {
+const Output = (props) => {
 
     console.log("4. I sort and display results");
+    console.log("searchStatus:" + props.searchStatus + " keyword: " + props.keyword);
      
-    if (props.searchStatus && props.movieData) {
+    if (props.movieData) {
 
+    console.log("do we get this far?")
     const movieArray = props.movieData; 
     const noOfResults = props.noOfResults;
     let shortenedArray = movieArray.slice(0, noOfResults ) 
@@ -33,25 +35,33 @@ export const Output = (props) => {
       
       newArray = shortenedArray.sort(compare); 
     }
-        
-    const movies = newArray.map((movie, index) => { 
+   
+    const movies = newArray.map((movie, index) => {  
     return ( 
       <div key={movie.imdbID}>
 
-        <h5>Movie {index+1}: {movie.Title}</h5>
-        <h5>Year: {movie.Year} &nbsp; IMBD ID. : {movie.imdbID}</h5>
+        <h5>Movie {index+1}: {movie.Title || "N/A"}</h5>
+        <br/>
+        <h5>Year: {movie.Year || "N/A" } &nbsp; IMBD ID.: {movie.imdbID || "N/A" }</h5>
         <img src={movie.Poster} alt="no graphic available"/>
       
       </div>
     )
     })
-  
+
     return (
       <div>
         <ol>{movies}</ol>
       </div>
       )
     } else {   
-      return null; 
+      return (
+        <div>
+          <h5>the keyword is {props.keyword || '???'}</h5>
+          <h5>press submit to return {props.noOfResults} results</h5>
+        </div>
+      )
   }
 }   
+
+export default Output;

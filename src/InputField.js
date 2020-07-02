@@ -4,7 +4,7 @@
  */
 import React from 'react';
 
-export const InputField = (props) => {
+const InputField = (props) => {
 
     console.log("1. I am an input field and dropdown!");
 
@@ -26,16 +26,17 @@ export const InputField = (props) => {
         </ol>
         </div> 
       <br/>
-      <label htmlFor="search"> Enter a keyword: </label>
+      <label htmlFor="search"> Keyword: </label>
       <input 
         type="text" 
-        name="search" 
+        name="search"
+        placeholder="example keyword: notebook" 
         id="search" 
         onChange={props.updateKeyword}>
       </input>
       <br/>
-      <label htmlFor="number">Number of search results: </label>
-      <select id="number" name="number" onChange={props.updateNoOfResults}>
+      <label htmlFor="number">Search results: </label>
+      <select id="number" name="number" data-testid="dropdown" onChange={props.updateNoOfResults}>
         {noOfResults}
       </select>
       </div>
@@ -44,3 +45,5 @@ export const InputField = (props) => {
       return null;
   }
 }
+
+export default InputField;
