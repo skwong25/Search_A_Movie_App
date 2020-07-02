@@ -40,7 +40,7 @@ import './App.css';
 
 import InputField from './InputField';
 import SubmitSearch from './SubmitSearch';
-import {SortResults} from './SortResults';
+import SortResults from './SortResults';
 import Output from './Output';
 import {Loading} from './Loading';
 
@@ -58,7 +58,7 @@ class App extends React.Component {
 
         this.updateKeyword = this.updateKeyword.bind(this);
         this.updateNoOfResults = this.updateNoOfResults.bind (this);
-        this.updateSortCriteria = this.updateSortCriteria.bind (this);
+        this.updateSortMethod = this.updateSortMethod.bind (this);
         this.fetchMovieData = this.fetchMovieData.bind (this);
     } 
 
@@ -72,10 +72,10 @@ class App extends React.Component {
         this.setState({results: number});
     }
 
-    updateSortCriteria(e) {
+    updateSortMethod(e) {
         if (e) {
-            const sortCriteria = e.target.value;
-            this.setState({sort: sortCriteria});
+            const sortName = e.target.value; // we may have move this 'if' depending on how the 'select' option reacts;
+            this.setState({sort: sortName});
         }
     }
 
@@ -88,8 +88,8 @@ class App extends React.Component {
             const queryParams = 's='; 
             const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery;
              
-            fetch(endpoint);
-            .then(response => response.json());   
+            fetch(endpoint)
+            .then(response => response.json())  
             .then(data => {
                 if (data.Response === "False") { 
                     alert(data.Error);
@@ -114,7 +114,7 @@ class App extends React.Component {
 
                 <SortResults
                     searchStatus={this.state.isPerformingSearch}
-                    updateSortCriteria={this.updateSortCriteria}
+                    updateSortMethod={this.updateSortMethod}
                     disabled={this.state.results === 1}
                 />
 

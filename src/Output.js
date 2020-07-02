@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import sortMethods from './sortMethods';
 
 const Output = (props) => {
     console.log("4. I sort and display results");
@@ -17,32 +18,9 @@ const Output = (props) => {
         let newArray = shortenedArray; 
 
         if (props.sortCriteria) {
-            let sortArray = props.sortCriteria.split(' ')
-            const sortCriteria = sortArray[0];    // Title , Year or Imbd
-            const order = sortArray[1];          // default ascending or descending 
-
-            console.log("searchStatus: " + props.searchStatus + " / Sort criteria: " + sortCriteria + " order: " + order)
-
-            const compare = (a,b) => {
-                const movieA = a[sortCriteria];
-                const movieB = b[sortCriteria];
-        
-                let comparison = 0;
-                if (movieA > movieB) 
-                    {comparison = 1
-                } else if (movieA < movieB) 
-                    {comparison = -1
-                };
-
-                if (order === "descending") 
-                    {comparison = comparison * -1
-                };
-
-                return comparison;
-            };
-      
-            newArray = shortenedArray.sort(compare); 
-        }
+            let sortCriteria = props.sortCriteria; 
+            console.log("searchStatus: " + props.searchStatus + " / Sort criteria: " + sortCriteria)
+            newArray = shortenedArray.sort(sortMethods[sortCriteria].comparator); 
    
         const movies = newArray.map((movie, index) => {  
             return ( 

@@ -15,6 +15,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Output from './Output';
+import sortMethods from './sortMethods';
 
 test('test1 - renders movie name, year, Imdb ID and an image', () => {
     render( 
@@ -71,10 +72,10 @@ test('test2 - renders the correct number of search results as selected by user',
 
 describe('sort function', () => {
   
-    test('test 3: sorts results in alphabetical order if "Title A-Z" sort criteria selected by user', () => {
-        render( 
+    test('test 3: sorts results in alphabetical order if "Title A-Z" sort criteria selected by user', async () => {
+        await render( 
             <Output 
-                sortCriteria="Title" 
+                sortCriteria="TITLE_ASCENDING" 
                 noOfResults="5" 
                 searchStatus="true" 
                 movieData={[
@@ -86,6 +87,7 @@ describe('sort function', () => {
                 ]} 
             />
         );
+
 //      screen.debug();
         let element = screen.getByText(/movie 1/i);  
         expect(element.textContent).toBe("Movie 1: A");
@@ -103,10 +105,10 @@ describe('sort function', () => {
         expect(element.textContent).toBe("Movie 5: P");
     });
 
-    test('test 4: sorts results in chronological order if "Year - Oldest-Newest" sort criteria selected by user', () => {
+    test('test 4: sorts results in chronological order if "Year - Oldest-Newest" sort criteria selected by user', async () => {
         render( 
             <Output 
-                sortCriteria="Year" 
+                sortCriteria="YEAR_ASCENDING" 
                 noOfResults="5" 
                 searchStatus="true" 
                 movieData={[ 
@@ -118,19 +120,19 @@ describe('sort function', () => {
                 ]} 
             />
         );
-        let element = screen.getByText(/movie 1/i);  
+        let element = await screen.getByText(/movie 1/i);  
         expect(element.textContent).toBe("Movie 1: H");
 
-        element = screen.getByText(/movie 2/i);  
+        element = await screen.getByText(/movie 2/i);  
         expect(element.textContent).toBe("Movie 2: A");
 
-        element = screen.getByText(/movie 3/i);  
+        element = await screen.getByText(/movie 3/i);  
         expect(element.textContent).toBe("Movie 3: C");
 
-        element = screen.getByText(/movie 4/i);  
+        element = await screen.getByText(/movie 4/i);  
         expect(element.textContent).toBe("Movie 4: O");
 
-        element = screen.getByText(/movie 5/i);  
+        element = await screen.getByText(/movie 5/i);  
         expect(element.textContent).toBe("Movie 5: P");
     });
 
@@ -138,7 +140,7 @@ describe('sort function', () => {
     test('test 5: sorts results by ascending ID number if "imdbID no." sort criteria selected by user', () => {
         render( 
             <Output 
-                sortCriteria="imdbID" 
+                sortCriteria="IMBDID" 
                 noOfResults="5" 
                 searchStatus="true" 
                 movieData={[  
