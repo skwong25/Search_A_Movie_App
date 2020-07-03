@@ -6,67 +6,35 @@
  * 'componentDidMount' lifecycle method only calls on the FIRST RENDER 
  * 
  * Idea: If we raise the state of 'isLoading' then the other Components can return nothing WHILE isLoading = true.
- * 
  */
-import React from 'react';
 
+import React from 'react';
 export class Loading extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isLoading: false}
-
-    this.componentDidMount = this.componentDidMount.bind (this)
-  }
-
-  componentDidMount() {
-    this.setState({ isLoading: true});
-    setTimeout(() => 
-            this.setState({
-                isLoading: false
-            }), 1000);
-  }
-
-/* This is called right before the component is removed from the DOM. (??)
-  componentWillUnmount() {
-    this.setState({ isLoading: true});
-    setTimeout(() => 
-            this.setState({
-                isLoading: false
-            }), 1000);
-  }
-*/
-
-
-/* This causes infinite loops as it calls EVERY time the re-renders: 
-  componentDidUpdate() {
-    this.setState({ isLoading: true});
-    setTimeout(() => 
-            this.setState({
-                isLoading: false
-            }), 500);
-  }
-*/ 
-
-
-
-  render() {
-
-    
-    console.log("0. I am a loading message!" + this.props.searchStatus + this.state.isLoading);
-
-    if (this.state.isLoading) {
-     return (
-        <div>
-         <h1>LOADING LOADING LOADING LOADING LOADING</h1>
-        </div>
-      )
-    } else {
-    return null
+    constructor(props) {
+        super(props);
+        this.state = {isLoading: false}
+        this.componentDidMount = this.componentDidMount.bind (this)
     }
-  }
+
+    componentDidMount() {
+      this.setState({isLoading: true});
+      setTimeout(() => 
+          this.setState({isLoading: false}), 1000);
+    }
+
+    render() {
+        console.log("0. I am a loading message!" + this.props.searchStatus + this.state.isLoading);
+        if (this.state.isLoading) {
+            return (
+                <div>
+                    <h1>LOADING LOADING LOADING LOADING LOADING</h1>
+                </div>
+            )
+        } else {
+        return null
+        };
+    }
 }
 
 
