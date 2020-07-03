@@ -43,6 +43,7 @@ import SubmitSearch from './SubmitSearch';
 import SortResults from './SortResults';
 import Output from './Output';
 import {Loading} from './Loading';
+import sortMethods  from './sortMethods';
 
 class App extends React.Component {
 
@@ -74,8 +75,11 @@ class App extends React.Component {
 
     updateSortMethod(e) {
         if (e) {
-            const sortName = e.target.value; // we may have move this 'if' depending on how the 'select' option reacts;
-            this.setState({sort: sortName});
+            const sortName = e.target.value; // gets constant name E.g: TITLE_ASCENDING
+            console.log("constant: " + sortName);
+            const sortObject = sortMethods[sortName]; 
+            console.log(sortObject.category);
+            this.setState({sort: sortObject}); // this should update state to the relevant Object 
         }
     }
 
@@ -126,7 +130,7 @@ class App extends React.Component {
                 <Output 
                     noOfResults={this.state.results}
                     movieData={this.state.movie}
-                    sortCriteria={this.state.sort}
+                    sortObject={this.state.sort}
                     searchStatus={this.state.isPerformingSearch}
                     keyword={this.state.keyword}
                 />

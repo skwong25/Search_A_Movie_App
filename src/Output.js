@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import sortMethods from './sortMethods';
 
 const Output = (props) => {
     console.log("4. I sort and display results");
@@ -17,11 +16,12 @@ const Output = (props) => {
         let shortenedArray = movieArray.slice(0, noOfResults);
         let newArray = shortenedArray; 
 
-        if (props.sortCriteria) {
-            let sortCriteria = props.sortCriteria; 
-            console.log("searchStatus: " + props.searchStatus + " / Sort criteria: " + sortCriteria)
-            newArray = shortenedArray.sort(sortMethods[sortCriteria].comparator); 
-   
+        if (props.sortObject) {
+            let sortObject = props.sortObject;
+            console.log("searchStatus: " + props.searchStatus + " / Sort criteria: " + sortObject.userMessage)
+            newArray = shortenedArray.sort(sortObject.comparator); 
+        };
+
         const movies = newArray.map((movie, index) => {  
             return ( 
                 <div key={movie.imdbID}>
@@ -46,6 +46,6 @@ const Output = (props) => {
             </div>
         )
     };
-}   
+} 
 
 export default Output;

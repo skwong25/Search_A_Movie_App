@@ -75,7 +75,7 @@ describe('sort function', () => {
     test('test 3: sorts results in alphabetical order if "Title A-Z" sort criteria selected by user', async () => {
         await render( 
             <Output 
-                sortCriteria="TITLE_ASCENDING" 
+                sortObject={sortMethods['TITLE_ASCENDING']}
                 noOfResults="5" 
                 searchStatus="true" 
                 movieData={[
@@ -108,7 +108,7 @@ describe('sort function', () => {
     test('test 4: sorts results in chronological order if "Year - Oldest-Newest" sort criteria selected by user', async () => {
         render( 
             <Output 
-                sortCriteria="YEAR_ASCENDING" 
+                sortObject={sortMethods.YEAR_ASCENDING} 
                 noOfResults="5" 
                 searchStatus="true" 
                 movieData={[ 
@@ -140,7 +140,7 @@ describe('sort function', () => {
     test('test 5: sorts results by ascending ID number if "imdbID no." sort criteria selected by user', () => {
         render( 
             <Output 
-                sortCriteria="IMBDID" 
+                sortObject={sortMethods.IMBD} 
                 noOfResults="5" 
                 searchStatus="true" 
                 movieData={[  
