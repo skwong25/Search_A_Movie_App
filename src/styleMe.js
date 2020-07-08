@@ -28,21 +28,14 @@ Obj.classes = makeStyles((theme) => ({
       alignItems: 'center', 
       flexdirection: 'column',
     },  
-    item: {
-      // alignSelf: 'baseline', // does nothing - supposed to align items to a centreline. 
-    },
     paper: {
       marginTop: theme.spacing(8),
       display: 'flex',
       flexdirection: 'column',
       alignItems: 'center',
     },
-    form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing(1),
-    },
     fixedHeight: { // I don't think this does anything either.
-      height: 240,
+      height: 500,
     },
 }))  
 // export { Obj.classes as Classes } 

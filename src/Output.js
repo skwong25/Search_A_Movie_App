@@ -8,20 +8,18 @@ import React from 'react';
 import { Obj } from './styleMe'; 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-
 import clsx from 'clsx';
-
 
 const Output = (props) => {
 
+    console.log("4. sorts & displays results");
+    console.log("searchStatus:" + props.searchStatus + " keyword: " + props.keyword);
+
     let classes = Obj.classes;
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
-    console.log("4. I sort and display results");
-    console.log("searchStatus:" + props.searchStatus + " keyword: " + props.keyword);
      
     if (props.movieData) {
-        console.log("do we get this far?")
+        console.log("Output.js has received movieData props")
         const movieArray = props.movieData; 
         const noOfResults = props.noOfResults;
         let shortenedArray = movieArray.slice(0, noOfResults);
@@ -51,14 +49,13 @@ const Output = (props) => {
         )
 
     } else {   
-        return (
-            
+        return (           
             <div>
                 <Grid item xs={12} md={12} lg={12} className={classes.item}> 
                     <Paper className={fixedHeightPaper}>
-                <h5>the keyword is {props.keyword || '???'}</h5>
-                <h5>press submit to return {props.noOfResults} results</h5>
-                </Paper>
+                        <h5>the keyword is {props.keyword || '???'}</h5>
+                        <h5>Press submit to return {props.noOfResults} results</h5>
+                    </Paper>
                 </Grid>
             </div>
         )
@@ -66,3 +63,11 @@ const Output = (props) => {
 } 
 
 export default Output;
+
+/*
+                        <TextField 
+                            id="filled-basic"
+                            variant="filled"
+                            label="lord">
+                        </TextField>
+*/

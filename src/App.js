@@ -46,7 +46,6 @@ import { Obj } from './styleMe';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 
 class App extends React.Component {
@@ -116,52 +115,45 @@ class App extends React.Component {
     render() { 
         let classes = Obj.classes;
         console.log(Obj.drawerWidth);
-        const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
         return (
             <div>
+                {/* Title */}
                 <Typography align="center" component="h1" variant="h5" color="initial" noWrap className={{flexGrow: 1}}>
                     Title: Movie App
                 </Typography>
-                <Container maxWidth="md" className={classes.container} flexdirection="column"> {/* flex container. Direct children are flex items.*/}
-                <Grid container spacing={5 } className={classes.container} flexdirection="column">
-                {/* Input Field*/}
-                    
-                            <InputField 
-                                searchStatus={this.state.isPerformingSearch}
-                                updateKeyword={this.updateKeyword} 
-                                updateNoOfResults={this.updateNoOfResults}
-                            />
-
-                <Grid item xs={12} md={12} lg={12} className={classes.item}>
-
-                       <SubmitSearch
+                <Container maxWidth="md" className={classes.container}> 
+                    <Grid container spacing={1} className={classes.container}> 
+                        {/* Input Fields */}
+                        <InputField 
+                            searchStatus={this.state.isPerformingSearch}
+                            updateKeyword={this.updateKeyword} 
+                            updateNoOfResults={this.updateNoOfResults}
+                        />
+                        {/* Search Button */}
+                        <SubmitSearch
                             searchStatus={this.state.isPerformingSearch}
                             handleClick={this.fetchMovieData} 
-                            />
-                </Grid>
-
-                <SortResults
-                    searchStatus={this.state.isPerformingSearch}
-                    updateSortMethod={this.updateSortMethod}
-                    disabled={this.state.results === 1}
-                />
-                {/* Output Text*/}
-                
-                            <Output 
-                                noOfResults={this.state.results}
-                                movieData={this.state.movie}
-                                sortObject={this.state.sort}
-                                searchStatus={this.state.isPerformingSearch}
-                                keyword={this.state.keyword}
-                            />
-                {/* Search button*/}
-               
-                {/* Loading Message */}
-                <Loading
-                searchStatus={this.state.isPerformingSearch}
-                />
-                </Grid>
+                        />    
+                        {/* Output Text */}
+                        <Output 
+                            noOfResults={this.state.results}
+                            movieData={this.state.movie}
+                            sortObject={this.state.sort}
+                            searchStatus={this.state.isPerformingSearch}
+                            keyword={this.state.keyword}
+                        />
+                        {/* Sort Results */}
+                        <SortResults
+                            searchStatus={this.state.isPerformingSearch}
+                            updateSortMethod={this.updateSortMethod}
+                            disabled={this.state.results === 1}
+                        />
+                        {/* Loading Message */}
+                        <Loading
+                            searchStatus={this.state.isPerformingSearch}
+                        />
+                    </Grid>
                 </Container>
             </div>
         );
