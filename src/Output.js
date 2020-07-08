@@ -5,7 +5,18 @@
 
 import React from 'react';
 
+import { Obj } from './styleMe'; 
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
+import clsx from 'clsx';
+
+
 const Output = (props) => {
+
+    let classes = Obj.classes;
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
     console.log("4. I sort and display results");
     console.log("searchStatus:" + props.searchStatus + " keyword: " + props.keyword);
      
@@ -33,6 +44,7 @@ const Output = (props) => {
         })
 
         return (
+
             <div>
                 <ol>{movies}</ol>
             </div>
@@ -40,9 +52,14 @@ const Output = (props) => {
 
     } else {   
         return (
+            
             <div>
+                <Grid item xs={12} md={12} lg={12} className={classes.item}> 
+                    <Paper className={fixedHeightPaper}>
                 <h5>the keyword is {props.keyword || '???'}</h5>
                 <h5>press submit to return {props.noOfResults} results</h5>
+                </Paper>
+                </Grid>
             </div>
         )
     };

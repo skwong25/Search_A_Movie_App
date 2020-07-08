@@ -4,8 +4,21 @@
  */
 
 import React from 'react';
+import Title from './Title'; 
+import Typography from '@material-ui/core/Typography';
+import { Obj } from './styleMe'; 
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select'; 
+import clsx from 'clsx';
 
 const InputField = (props) => {
+
+    let classes = Obj.classes;
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     console.log("1. I am an input field and dropdown!");
 
@@ -17,30 +30,56 @@ const InputField = (props) => {
 
         return ( 
             <div>
-                <h3>How to search:</h3>
+                <Grid item xs={12} md={12} lg={12} className={classes.item}> 
+                    <Paper className={fixedHeightPaper}>
+                <Title>How to Search:</Title>
                 <ol>
                     <li>Enter keyword</li>
                     <li>Select number of search results</li>
                     <li>Click Search</li>
                 </ol>
                 <br/>
-                <label htmlFor="search"> Keyword: </label>
-                <input 
-                    type="text" 
-                    name="search"
-                    placeholder="example keyword: notebook" 
-                    id="search" 
-                    onChange={props.updateKeyword}>
-                </input>
+                </Paper>
+                </Grid>
+
+                <Grid item xs={12} md={12} lg={12} className={classes.item}> 
+                    <Paper className={fixedHeightPaper}>
+                <form className={classes.form} noValidate>
+
+                <InputLabel id="search">Keyword:</InputLabel>
+                <Input
+                type="text"
+                name="search"
+                id="search" 
+                onChange={props.updateKeyword}
+                variant="outlined"
+                margin="none"
+                required
+                // fullWidth
+                label="example: 'notebook' "
+                autoComplete="notebook"
+                autoFocus
+                />
+                </form>
+                </Paper>
+                </Grid>
                 <br/>
-                <label htmlFor="number">Search results: </label>
-                <select 
+                <Grid item xs={12} md={12} lg={12} className={classes.item}> 
+                    <Paper className={fixedHeightPaper}>
+                <InputLabel id="number">Number of Results</InputLabel>
+                <Select 
                     id="number" 
                     name="number" 
+                    defaultValue="1"
+                    autoWidth
                     data-testid="dropdown" 
                     onChange={props.updateNoOfResults}>
                 {noOfResults}
-                </select>
+                </Select>
+                </Paper>
+                </Grid>
+                <br/>
+                
             </div>
         ) 
     } else {
