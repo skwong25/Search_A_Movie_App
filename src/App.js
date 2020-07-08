@@ -122,8 +122,8 @@ class App extends React.Component {
                 <Typography align="center" component="h1" variant="h5" color="initial" noWrap className={{flexGrow: 1}}>
                     Title: Movie App
                 </Typography>
-                <Container maxWidth="md" className={classes.container}> 
-                    <Grid container spacing={1} className={classes.container}> 
+                <Container fullWidth direction= "column"> 
+                    <Grid container spacing={0} direction= "column" justify = "center" alignItems = "center"> 
                         {/* Input Fields */}
                         <InputField 
                             searchStatus={this.state.isPerformingSearch}

@@ -51,8 +51,8 @@ const Output = (props) => {
     } else {   
         return (           
             <div>
-                <Grid item xs={12} md={12} lg={12} className={classes.item}> 
-                    <Paper className={fixedHeightPaper}>
+                <Grid item xs={12} md={12} lg={12}> 
+                    <Paper fullWidth className={classes.paper}>
                         <h5>the keyword is {props.keyword || '???'}</h5>
                         <h5>Press submit to return {props.noOfResults} results</h5>
                     </Paper>

@@ -29,7 +29,7 @@ const InputField = (props) => {
         return ( 
             <div>
                 {/* Search Instructions */}
-                <Grid item xs={12} md={12} > 
+                <Grid item xs={12} md={12} lg={12}> 
                     <Paper className={fixedHeightPaper}>
                         <Title>How to Search:</Title>
                         <ol>
@@ -41,7 +41,8 @@ const InputField = (props) => {
                     </Paper>
                 </Grid>
                 {/* Keyword Input */}
-                <Grid item xs={12} md={12} lg={12}> 
+                <Grid container direction="row">
+                <Grid item xs={12} md={9} lg={8}>
                     <Paper className={fixedHeightPaper}>
                         <InputLabel id="search">Search:</InputLabel>
                         <Input
@@ -53,21 +54,25 @@ const InputField = (props) => {
                             margin="none"
                             required
                             fullWidth
+                            padding="20px"
                         />
                     </Paper>
                 </Grid>
                 <br/>
-                <Grid item xs={12} md={12} className={classes.item}> 
-                    <Paper>
-                        <InputLabel id="number">Number of Results</InputLabel>
+                {/* Dropdown List for No. of Results */}
+                <Grid item xs={12} md={3} lg={4}>  
+                    <Paper className={fixedHeightPaper}>
+                        <InputLabel id="number">No. Results</InputLabel>
                         <Select 
                             id="number" 
                             name="number" 
                             data-testid="dropdown" 
+                            padding="20px"
                             onChange={props.updateNoOfResults}>
                             {noOfResults}
                         </Select>
                     </Paper>
+                </Grid>
                 </Grid>
                 <br/>
             </div>

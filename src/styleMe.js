@@ -17,28 +17,37 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const Obj = {}
-Obj.drawerWidth = 600;
 Obj.classes = makeStyles((theme) => ({ 
     root: {
       display: 'flex', // defines a block container and causes all my text to left-align within my Grid items 
     },
     container: { 
       display: 'flex', // defines a flex container, enables flex context for its direct children (the Grids)
-      justifyContent: 'center',
-      alignItems: 'center', 
-      flexdirection: 'column',
-    },  
+      direction: "column",
+      justify: "center",
+      alignItems: "center",
+      // padding: "10px", // does nothing
+    }, 
+    item: {
+      // padding: "50px" // does nothing 
+    }, 
     paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexdirection: 'column',
-      alignItems: 'center',
+      marginTop: theme.spacing(1), // does nothing
+      direction: "column", // does nothing
+      justify: "center", // does nothing
+      alignItems: "center", // does nothing
+      padding: theme.spacing(10), // does nothing
+      textAlign: 'center', // does nothing
+      // padding: "50px" // does nothing
     },
     fixedHeight: { // I don't think this does anything either.
       height: 500,
+      // padding: "50px"
     },
 }))  
 // export { Obj.classes as Classes } 
 export { Obj }
 
-// I imported it, but I don't know if 
+// Not sure why flexDirection is across? We want it vertical. 
+// Ideally:
+// Want elements evenly spaced. The attribute "padding="10px" on all / individ items doesn't seem to do anything. 
