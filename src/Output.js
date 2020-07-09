@@ -8,6 +8,8 @@ import React from 'react';
 import { Obj } from './styleMe'; 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 const Output = (props) => {
 
@@ -49,10 +51,17 @@ const Output = (props) => {
     } else {   
         return (           
             <div>
-                <Grid item xs={12} md={12} lg={12}> 
-                    <Paper fullWidth className={classes.paper}>
-                        <h5>the keyword is {props.keyword || '???'}</h5>
-                        <h5>Press submit to return {props.noOfResults} results</h5>
+                
+                <Grid item sm={4} lg={4}> 
+                    <Paper className={classes.paper}>
+                    <Box p={1} m={1}>
+                    <Typography align="left" variant="body2" padding={5}>
+                     The keyword is {props.keyword || '???'}
+                     </Typography>
+                     <Typography align="left" gutterBottom variant="body2">
+                     Press SEARCH to return {props.noOfResults} results
+                    </Typography>
+                    </Box>
                     </Paper>
                 </Grid>
             </div>

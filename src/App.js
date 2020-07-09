@@ -35,16 +35,17 @@
 import React from 'react';
 import './App.css';
 
+
 import InputField from './InputField';
 import SubmitSearch from './SubmitSearch';
 import SortResults from './SortResults';
 import Output from './Output';
 import {Loading} from './Loading';
 import sortMethods  from './sortMethods';
+import { Obj } from './styleMe';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
 
 class App extends React.Component {
 
@@ -111,26 +112,36 @@ class App extends React.Component {
     
 
     render() { 
+
+        let classes = Obj.classes;
         
         return (
             <div>
-                {/* Title */}
-                <Typography align="center" component="h1" variant="h5" color="initial" noWrap className={{flexGrow: 1}}>
-                    Title: Movie App
-                </Typography>
-                <Container fullWidth direction= "column"> 
-                    <Grid container spacing={0} direction= "column" justify = "center" alignItems = "center"> 
+                <Grid container classname={classes.root} spacing={2} direction="column">
+                    <Grid item align="center">
+                        {/* Title */}
+                        <div className="App" style={{ color: "white", backgroundColor: "mediumvioletred" }}>
+                        <Typography align="center" component="h1" variant="h5">
+                            @( * ____ * )@      
+                        </Typography>
+                        </div>
+                    </Grid>
+                    <Grid item align="center">
                         {/* Input Fields */}
                         <InputField 
                             searchStatus={this.state.isPerformingSearch}
                             updateKeyword={this.updateKeyword} 
                             updateNoOfResults={this.updateNoOfResults}
                         />
+                    </Grid>
+                    <Grid item align="center">
                         {/* Search Button */}
                         <SubmitSearch
                             searchStatus={this.state.isPerformingSearch}
                             handleClick={this.fetchMovieData} 
                         />    
+                    </Grid>
+                    <Grid item align="center">
                         {/* Output Text */}
                         <Output 
                             noOfResults={this.state.results}
@@ -139,18 +150,22 @@ class App extends React.Component {
                             searchStatus={this.state.isPerformingSearch}
                             keyword={this.state.keyword}
                         />
+                    </Grid>
+                    <Grid item justify="center" align="center">   
+                        {/* Loading Message */}
+                        <Loading
+                            searchStatus={this.state.isPerformingSearch}
+                        />
+                    </Grid>    
+                    <Grid item>
                         {/* Sort Results */}
                         <SortResults
                             searchStatus={this.state.isPerformingSearch}
                             updateSortMethod={this.updateSortMethod}
                             disabled={this.state.results === 1}
                         />
-                        {/* Loading Message */}
-                        <Loading
-                            searchStatus={this.state.isPerformingSearch}
-                        />
-                    </Grid>
-                </Container>
+                    </Grid> 
+            </Grid>
             </div>
         );
     }

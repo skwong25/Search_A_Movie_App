@@ -5,20 +5,22 @@
 
 import React from 'react';
 import Title from './Title'; 
-import { Obj } from './styleMe'; 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select'; 
-import clsx from 'clsx';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
 
 const InputField = (props) => {
 
     console.log("1. Input field and dropdown");
-    let classes = Obj.classes;
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     if (!props.searchStatus) {  
         let noOfResults = []; 
@@ -29,52 +31,75 @@ const InputField = (props) => {
         return ( 
             <div>
                 {/* Search Instructions */}
-                <Grid item xs={12} md={12} lg={12}> 
-                    <Paper className={fixedHeightPaper}>
-                        <Title>How to Search:</Title>
-                        <ol>
-                            <li>Enter keyword</li>
-                            <li>Select number of search results</li>
-                            <li>Click Search</li>
-                        </ol>
-                        <br/>
-                    </Paper>
+                <Grid container spacing={2} justify="center" align="center"     >
+                    <Grid item md={4} lg={4}> 
+                        <Paper align="left">
+                            <Box paddingLeft={2} paddingTop={1}>
+                                <Title>How to Use this App:</Title>
+                            </Box>
+                            <List alignItems="flex-start">
+                            {[  ["1. ", "Enter keyword","Example: 'The Notebook'"], 
+                                ["2. ", "Select number of search results","None selected returns 10 search results"],
+                                ["3. ", "Click Search", "Bingo!"]].map((value)=> (
+                                <div>
+                                <Divider component="li"/>
+                                <ListItem alignItems="flex-start" >
+                                <ListItemText key={value[0]} primary={value[0] + value[1]} secondary={value[2]}/>
+                                </ListItem>
+                                </div>
+                            ))}
+                            </List>
+                        </Paper>
+                    </Grid>
+                    <Grid item md={5} lg={5}> 
+                        <Grid container direction="row" spacing={2}>
+                            {/* Keyword Input */}
+                            <Grid item align="left" md={5} lg={5} alignContent="flex-start" >
+                                <Paper>
+                                    <Box p={1} m={0}>
+                                        <InputLabel id="search">Enter keyword:</InputLabel>
+                                        <Input
+                                            type="text"
+                                            name="search"
+                                            id="search" 
+                                            onChange={props.updateKeyword}
+                                            required
+                                        />
+                                    </Box>
+                                </Paper>
+                            </Grid>
+                            {/* Dropdown List for No. of Results */}
+                            <Grid item align="right" md={3} lg={3} > 
+                                <Paper>
+                                    <Box p={1} m={0}>
+                                        <InputLabel id="number">No. of Results</InputLabel>
+                                        <Select id="number" name="number" data-testid="dropdown" onChange={props.updateNoOfResults}>
+                                            {noOfResults}
+                                        </Select>
+                                    </Box>
+                                </Paper>
+                            </Grid>
+                            {/* Quotes */}
+                            <Grid item alight="right" md={8} lg={8}>
+                                <Paper height={50}>
+                                    <Box p={1}>
+                                        <Typography align="left" variant='subtitle2'>"Everything I learned I learned from the movies."</Typography>
+                                    </Box>
+                                    <Box paddingRight={3} paddingBottom={4}>
+                                        <Typography align='right'variant='subtitle2' color="secondary"> - Audrey Hepburn </Typography>
+                                    </Box>
+                                    <Divider/>
+                                    <Box p={1}>
+                                        <Typography align="left" variant='subtitle2'>“No good movie is too long and no bad movie is short enough.”</Typography>
+                                    </Box>
+                                    <Box paddingRight={3} paddingBottom={3}>
+                                        <Typography align='right'variant='subtitle2' color="secondary"> - Roger Ebert </Typography>
+                                    </Box>
+                                </Paper>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </Grid>
-                {/* Keyword Input */}
-                <Grid container direction="row">
-                <Grid item xs={12} md={9} lg={8}>
-                    <Paper className={fixedHeightPaper}>
-                        <InputLabel id="search">Search:</InputLabel>
-                        <Input
-                            type="text"
-                            name="search"
-                            id="search" 
-                            onChange={props.updateKeyword}
-                            variant="outlined"
-                            margin="none"
-                            required
-                            fullWidth
-                            padding="20px"
-                        />
-                    </Paper>
-                </Grid>
-                <br/>
-                {/* Dropdown List for No. of Results */}
-                <Grid item xs={12} md={3} lg={4}>  
-                    <Paper className={fixedHeightPaper}>
-                        <InputLabel id="number">No. Results</InputLabel>
-                        <Select 
-                            id="number" 
-                            name="number" 
-                            data-testid="dropdown" 
-                            padding="20px"
-                            onChange={props.updateNoOfResults}>
-                            {noOfResults}
-                        </Select>
-                    </Paper>
-                </Grid>
-                </Grid>
-                <br/>
             </div>
         ) 
     } else {
