@@ -8,7 +8,6 @@ import React from 'react';
 import { Obj } from './styleMe'; 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import clsx from 'clsx';
 
 const Output = (props) => {
 
@@ -16,7 +15,6 @@ const Output = (props) => {
     console.log("searchStatus:" + props.searchStatus + " keyword: " + props.keyword);
 
     let classes = Obj.classes;
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
      
     if (props.movieData) {
         console.log("Output.js has received movieData props")

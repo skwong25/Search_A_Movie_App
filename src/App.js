@@ -34,7 +34,6 @@
  */
 import React from 'react';
 import './App.css';
-import clsx from 'clsx';
 
 import InputField from './InputField';
 import SubmitSearch from './SubmitSearch';
@@ -42,7 +41,6 @@ import SortResults from './SortResults';
 import Output from './Output';
 import {Loading} from './Loading';
 import sortMethods  from './sortMethods';
-import { Obj } from './styleMe'; 
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -113,9 +111,7 @@ class App extends React.Component {
     
 
     render() { 
-        let classes = Obj.classes;
-        console.log(Obj.drawerWidth);
-
+        
         return (
             <div>
                 {/* Title */}
