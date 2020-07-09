@@ -24,8 +24,11 @@ const SubmitSearch = (props) => {
     } else {
         return (
             <div>
-                <br/>
-                <Button color="primary" className="Refresh" onClick={()=>window.location.reload(false)}>Refresh</Button>
+                <Grid item sm={4} lg={4} >
+                    <Paper>
+                        <Button fullWidth variant="contained" color="primary" className="Refresh" onClick={()=>window.location.reload(false)}>Refresh</Button>
+                    </Paper>
+                </Grid>
             </div>
         )
     };

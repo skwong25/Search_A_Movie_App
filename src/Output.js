@@ -59,7 +59,7 @@ const Output = (props) => {
                      The keyword is {props.keyword || '???'}
                      </Typography>
                      <Typography align="left" gutterBottom variant="body2">
-                     Press SEARCH to return {props.noOfResults} results
+                     Press SEARCH to return {props.noOfResults || ""} results
                     </Typography>
                     </Box>
                     </Paper>
@@ -70,11 +70,3 @@ const Output = (props) => {
 } 
 
 export default Output;
-
-/*
-                        <TextField 
-                            id="filled-basic"
-                            variant="filled"
-                            label="lord">
-                        </TextField>
-*/

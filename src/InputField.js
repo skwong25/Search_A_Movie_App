@@ -17,16 +17,19 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const InputField = (props) => {
 
     console.log("1. Input field and dropdown");
-
     if (!props.searchStatus) {  
         let noOfResults = []; 
         for (let n = 1; n< 6; n++) { 
             noOfResults.push(<option key={n}>{n}</option>) 
         }  
+
+const numbers = [1,2,3,4,5,6,7,8,9,10]
+
 
         return ( 
             <div>
@@ -74,7 +77,11 @@ const InputField = (props) => {
                                     <Box p={1} m={0}>
                                         <InputLabel id="number">No. of Results</InputLabel>
                                         <Select id="number" name="number" data-testid="dropdown" onChange={props.updateNoOfResults}>
-                                            {noOfResults}
+                                            {numbers.map((number)=> (
+                                                <MenuItem key={number} value={number}>
+                                                    {number}
+                                                </MenuItem>
+                                            ))} 
                                         </Select>
                                     </Box>
                                 </Paper>
