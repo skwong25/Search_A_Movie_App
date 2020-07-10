@@ -46,7 +46,7 @@ const instructionsList = instructions.map((value)=> (
 
         return ( 
             <div>
-
+                
                 {/* Search Instructions */}
 
                 <Grid container spacing={2} justify="center" align="center"     >
@@ -68,7 +68,7 @@ const instructionsList = instructions.map((value)=> (
                             <Grid item align="left" md={5} lg={5}>
                                 <Paper>
                                     <Box p={1} m={0}>
-                                        <InputLabel id="search">Enter keyword:</InputLabel>
+                                        <InputLabel htmlFor="search">Enter keyword:</InputLabel>
                                         <Input
                                             type="text"
                                             name="search"

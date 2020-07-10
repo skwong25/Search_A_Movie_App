@@ -10,8 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 
 const Output = (props) => {
 
