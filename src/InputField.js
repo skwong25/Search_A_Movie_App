@@ -7,7 +7,6 @@ import React from 'react';
 import Title from './Title'; 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select'; 
@@ -29,35 +28,44 @@ const InputField = (props) => {
         }  
 
 const numbers = [1,2,3,4,5,6,7,8,9,10]
+const instructions = [ 
+    ["1. ", "Enter keyword","Example: 'The Notebook'"], 
+    ["2. ", "Select number of search results","None selected returns 1 search result"],
+    ["3. ", "Click Search", "Bingo!"]
+]
+
+const instructionsList = instructions.map((value)=> (
+    <div>
+        <Divider component="li"/>
+        <ListItem key={value[0]} alignItems="flex-start" >
+            <ListItemText primary={value[0] + value[1]} secondary={value[2]}/>
+        </ListItem>
+    </div>
+))
 
 
         return ( 
             <div>
+
                 {/* Search Instructions */}
+
                 <Grid container spacing={2} justify="center" align="center"     >
                     <Grid item md={4} lg={4}> 
                         <Paper align="left">
                             <Box paddingLeft={2} paddingTop={1}>
                                 <Title>How to Use this App:</Title>
                             </Box>
-                            <List alignItems="flex-start">
-                            {[  ["1. ", "Enter keyword","Example: 'The Notebook'"], 
-                                ["2. ", "Select number of search results","None selected returns 10 search results"],
-                                ["3. ", "Click Search", "Bingo!"]].map((value)=> (
-                                <div>
-                                <Divider component="li"/>
-                                <ListItem alignItems="flex-start" >
-                                <ListItemText key={value[0]} primary={value[0] + value[1]} secondary={value[2]}/>
-                                </ListItem>
-                                </div>
-                            ))}
+                            <List>
+                            { instructionsList }
                             </List>
                         </Paper>
                     </Grid>
                     <Grid item md={5} lg={5}> 
                         <Grid container direction="row" spacing={2}>
+
                             {/* Keyword Input */}
-                            <Grid item align="left" md={5} lg={5} alignContent="flex-start" >
+
+                            <Grid item align="left" md={5} lg={5}>
                                 <Paper>
                                     <Box p={1} m={0}>
                                         <InputLabel id="search">Enter keyword:</InputLabel>
@@ -71,7 +79,9 @@ const numbers = [1,2,3,4,5,6,7,8,9,10]
                                     </Box>
                                 </Paper>
                             </Grid>
+
                             {/* Dropdown List for No. of Results */}
+
                             <Grid item align="right" md={3} lg={3} > 
                                 <Paper>
                                     <Box p={1} m={0}>
@@ -86,9 +96,11 @@ const numbers = [1,2,3,4,5,6,7,8,9,10]
                                     </Box>
                                 </Paper>
                             </Grid>
+
                             {/* Quotes */}
+
                             <Grid item alight="right" md={8} lg={8}>
-                                <Paper height={50}>
+                                <Paper height={100}>
                                     <Box p={1}>
                                         <Typography align="left" variant='subtitle2'>"Everything I learned I learned from the movies."</Typography>
                                     </Box>

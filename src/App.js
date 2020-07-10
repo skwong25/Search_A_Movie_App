@@ -109,21 +109,21 @@ class App extends React.Component {
         };
     }
 
-    
-
     render() { 
 
         let classes = Obj.classes;
         
         return (
             <div>
-                <Grid container classname={classes.root} spacing={2} direction="column">
+                <Grid container className={classes.root} spacing={2} direction="column">
                     <Grid item align="center">
-                        {/* Title */}
-                        <div className="App" style={{ color: "white", backgroundColor: "mediumvioletred" }}>
-                        <Typography align="center" component="h1" variant="h5">
-                            @( * ____ * )@      
-                        </Typography>
+                        {/* Header */}
+                        <div className="Header" style={{ color: "white", backgroundColor: "mediumvioletred" }}>
+                            <header>
+                                <Typography align="center" component="h1" variant="h5">
+                                    @( * ____ * )@      
+                                </Typography>
+                            </header>
                         </div>
                     </Grid>
                     <Grid item align="center">
@@ -134,6 +134,14 @@ class App extends React.Component {
                             updateNoOfResults={this.updateNoOfResults}
                         />
                     </Grid>
+                    <Grid item align="center">
+                        {/* Sort Results */}
+                        <SortResults
+                            searchStatus={this.state.isPerformingSearch}
+                            updateSortMethod={this.updateSortMethod}
+                            disabled={this.state.results === 1}
+                        />
+                    </Grid> 
                     <Grid item align="center">
                         {/* Search Button */}
                         <SubmitSearch
@@ -151,18 +159,10 @@ class App extends React.Component {
                             keyword={this.state.keyword}
                         />
                     </Grid>
-                    <Grid item justify="center" align="center">   
+                    <Grid item align="center">   
                         {/* Loading Message */}
                         <Loading
                             searchStatus={this.state.isPerformingSearch}
-                        />
-                    </Grid>    
-                    <Grid item>
-                        {/* Sort Results */}
-                        <SortResults
-                            searchStatus={this.state.isPerformingSearch}
-                            updateSortMethod={this.updateSortMethod}
-                            disabled={this.state.results === 1}
                         />
                     </Grid> 
             </Grid>

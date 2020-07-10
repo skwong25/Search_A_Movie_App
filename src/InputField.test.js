@@ -21,9 +21,9 @@ import Output from './Output';
 
 
 describe("Input field", () => {
-    test('test 1: renders dropdown menu of numbers 1-5', () => {
-        const { getByRole } = render(<InputField/>);
-        let element = getByRole( "option", {name: "1"}) ;
+    test('test 1: renders dropdown menu containing numbers 1-5', () => {
+        const { getByRole } = render(<InputField/>); 
+        let element = getByRole( "option", {name: "1"}); // Believe this is not picking up the correct Element. 
         expect(element.textContent).toBe("1");
 
         element = getByRole("option", {name: "2"});
@@ -39,10 +39,10 @@ describe("Input field", () => {
         expect(element.textContent).toBe("5")
     });
 
-    test('test 1.1: renders dropdown menu of 5 options', () => {
+    test('test 1.1: renders dropdown menu of 10 options', () => {
         const { getByTestId } = render(<InputField/>);
-        const element = getByTestId("dropdown");
-        expect(element.children.length).toBe(5);
+        const element = getByTestId("dropdown"); 
+        expect(element.children.length).toBe(10);
     });
 
     test('test 1.2: selecting a dropdown option updates Output message', () => {

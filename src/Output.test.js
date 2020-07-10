@@ -65,8 +65,8 @@ test('test2 - renders the correct number of search results as selected by user',
               { Title: "5", Year: "1994", imdbID: "05"},
           ]} 
       />
-  );
-  let element = screen.getByRole("list");
+  ); 
+  let element = screen.getByTestId("finalMovies"); // This is no longer working. 
   expect(element.children.length).toBe(3);
 });
 

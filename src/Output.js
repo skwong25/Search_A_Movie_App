@@ -10,6 +10,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 const Output = (props) => {
 
@@ -34,9 +36,17 @@ const Output = (props) => {
         const movies = newArray.map((movie, index) => {  
             return ( 
                 <div key={movie.imdbID}>
-                    <h5>Movie {index+1}: {movie.Title || "N/A"}</h5>
-                    <h5>Year: {movie.Year || "N/A" } &nbsp; IMBD ID.: {movie.imdbID || "N/A" }</h5>
-                    <img src={movie.Poster} alt="no graphic available"/>
+                    <Box p={2}>
+                    <Grid item key={movie.imdbID}>
+                        <Paper>
+                            <Box p={2}>
+                                <h5>Movie {index+1}: {movie.Title || "N/A"}</h5>
+                                <h5>Year: {movie.Year || "N/A" } &nbsp; IMBD ID.: {movie.imdbID || "N/A" }</h5>
+                                <img src={movie.Poster} alt="no graphic available"/>
+                            </Box>
+                        </Paper>
+                    </Grid>
+                    </Box>
                 </div>
             )
         })
@@ -44,7 +54,13 @@ const Output = (props) => {
         return (
 
             <div>
-                <ol>{movies}</ol>
+                <Grid container className={classes.root} justify="center">
+                    <Grid item>
+                        <Grid container data-testid="finalMovies" direction="row" justify="center">
+                                {movies}
+                        </Grid>
+                    </Grid>
+                </Grid>
             </div>
         )
 
@@ -70,3 +86,4 @@ const Output = (props) => {
 } 
 
 export default Output;
+

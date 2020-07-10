@@ -14,7 +14,7 @@ const SubmitSearch = (props) => {
     if (!props.searchStatus) {
         return ( 
             <div>
-                <Grid item sm={4} lg={4} >
+                <Grid item sm={4} lg={4}>
                     <Paper>
                         <Button fullWidth variant="contained" color="primary" onClick={props.handleClick} >Search</Button> 
                     </Paper>
