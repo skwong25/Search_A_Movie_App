@@ -28,7 +28,7 @@ const SortResults = (props) => {
     if (props.searchStatus) {      
         return (
             <div>
-                <Grid item md={4} lg={4} align="right">
+                <Grid item xs={12} md={4} lg={4} align="right">
                     <Paper>
                         <Box p={2}>
                             <InputLabel id="sort" align="right"> Sort by: </InputLabel>

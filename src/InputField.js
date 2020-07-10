@@ -43,29 +43,49 @@ const instructionsList = instructions.map((value)=> (
     </div>
 ))
 
-
         return ( 
             <div>
-                
                 {/* Search Instructions */}
-
-                <Grid container spacing={2} justify="center" align="center"     >
-                    <Grid item md={4} lg={4}> 
-                        <Paper align="left">
-                            <Box paddingLeft={2} paddingTop={1}>
-                                <Title>How to Use this App:</Title>
+                <Grid container spacing={2} justify="center" paddingTop={10}>
+                    <Grid item margin={20}>
+                        <Grid container direction="row" spacing="2">
+                            <Grid item xs={12} md={7} lg={7}> 
+                                <Paper align="left">
+                                    <Box paddingLeft={2} paddingTop={1}>
+                                        <Title>How to Use this App:</Title>
+                                    </Box>
+                                    <List>{ instructionsList }</List>
+                                </Paper>
+                            </Grid>
+                        {/* Quotes */}
+                        <Grid item xs={12} md={5} lg={5}>
+                        <Paper height={150}>
+                            <Box paddingRight={3} paddingTop={1} paddingBottom={1}>
+                                <Title>Quotes:</Title>
                             </Box>
-                            <List>
-                            { instructionsList }
-                            </List>
+                            <Divider/>
+                            <Box p={1}>
+                                <Typography align="left" variant='subtitle2'>"Everything I learned I learned from the movies."</Typography>
+                            </Box>
+                            <Box paddingRight={3} paddingBottom={4}>
+                                <Typography align='right'variant='subtitle2' color="secondary"> - Audrey Hepburn </Typography>
+                            </Box>
+                            <Divider/>
+                            <Box p={1}>
+                                <Typography align="left" variant='subtitle2'>“No good movie is too long and no bad movie is short enough.”</Typography>
+                            </Box>
+                            <Box paddingRight={3} paddingBottom={3}>
+                                <Typography align='right'variant='subtitle2' color="secondary"> - Roger Ebert </Typography>
+                            </Box>
                         </Paper>
                     </Grid>
-                    <Grid item md={5} lg={5}> 
-                        <Grid container direction="row" spacing={2}>
+                    </Grid>
+                    </Grid>
+                    <Grid item xs={12} md={8} lg={8}> 
+                        <Grid container direction="row" spacing={2} justify="center">
 
                             {/* Keyword Input */}
-
-                            <Grid item align="left" md={5} lg={5}>
+                            <Grid item align="center" xs={12} md={6} lg={6}>
                                 <Paper>
                                     <Box p={1} m={0}>
                                         <InputLabel htmlFor="search">Enter keyword:</InputLabel>
@@ -81,8 +101,7 @@ const instructionsList = instructions.map((value)=> (
                             </Grid>
 
                             {/* Dropdown List for No. of Results */}
-
-                            <Grid item align="right" md={3} lg={3} > 
+                            <Grid item align="center" xs={12} md={3} lg={3} > 
                                 <Paper>
                                     <Box p={1} m={0}>
                                         <InputLabel id="number">No. of Results</InputLabel>
@@ -93,26 +112,6 @@ const instructionsList = instructions.map((value)=> (
                                                 </MenuItem>
                                             ))} 
                                         </Select>
-                                    </Box>
-                                </Paper>
-                            </Grid>
-
-                            {/* Quotes */}
-
-                            <Grid item alight="right" md={8} lg={8}>
-                                <Paper height={100}>
-                                    <Box p={1}>
-                                        <Typography align="left" variant='subtitle2'>"Everything I learned I learned from the movies."</Typography>
-                                    </Box>
-                                    <Box paddingRight={3} paddingBottom={4}>
-                                        <Typography align='right'variant='subtitle2' color="secondary"> - Audrey Hepburn </Typography>
-                                    </Box>
-                                    <Divider/>
-                                    <Box p={1}>
-                                        <Typography align="left" variant='subtitle2'>“No good movie is too long and no bad movie is short enough.”</Typography>
-                                    </Box>
-                                    <Box paddingRight={3} paddingBottom={3}>
-                                        <Typography align='right'variant='subtitle2' color="secondary"> - Roger Ebert </Typography>
                                     </Box>
                                 </Paper>
                             </Grid>
@@ -127,6 +126,3 @@ const instructionsList = instructions.map((value)=> (
 }
 
 export default InputField;
-
-// The Select dropdown component functionality broken - does not update State in App.js onChange
-// Check if onChange is a legitimate attribute. 

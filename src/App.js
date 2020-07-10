@@ -46,6 +46,7 @@ import { Obj } from './styleMe';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 class App extends React.Component {
 
@@ -116,16 +117,26 @@ class App extends React.Component {
         return (
             <div>
                 <Grid container className={classes.root} spacing={2} direction="column">
+                    <Box paddingBottom={5}>
                     <Grid item align="center">
                         {/* Header */}
                         <div className="Header" style={{ color: "white", backgroundColor: "mediumvioletred" }}>
                             <header>
-                                <Typography align="center" component="h1" variant="h5">
-                                    @( * ____ * )@      
-                                </Typography>
+                                <Box p={5}>
+                                    <Typography align="center" component="h1" variant="h5">
+                                        @( * ____ * )@      
+                                    </Typography>
+                                </Box>
                             </header>
                         </div>
                     </Grid>
+                    </Box>
+                    <Grid item align="center">   
+                        {/* Loading Message */}
+                        <Loading
+                            searchStatus={this.state.isPerformingSearch}
+                        />
+                    </Grid> 
                     <Grid item align="center">
                         {/* Input Fields */}
                         <InputField 
@@ -159,12 +170,6 @@ class App extends React.Component {
                             keyword={this.state.keyword}
                         />
                     </Grid>
-                    <Grid item align="center">   
-                        {/* Loading Message */}
-                        <Loading
-                            searchStatus={this.state.isPerformingSearch}
-                        />
-                    </Grid> 
             </Grid>
             </div>
         );

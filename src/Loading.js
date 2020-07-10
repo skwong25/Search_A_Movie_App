@@ -8,7 +8,10 @@
  * Idea: If we raise the state of 'isLoading' then the other Components can return nothing WHILE isLoading = true.
  */
 
-import React from 'react';
+import React from 'react';  
+import Grid from '@material-ui/core/Grid';
+import Title from './Title'; 
+
 export class Loading extends React.Component {
 
     constructor(props) {
@@ -28,7 +31,9 @@ export class Loading extends React.Component {
         if (this.state.isLoading) {
             return (
                 <div>
-                    <h1>LOADING LOADING LOADING LOADING LOADING</h1>
+                    <Grid item>
+                        <Title>...LOADING...</Title>
+                    </Grid>
                 </div>
             )
         } else {
