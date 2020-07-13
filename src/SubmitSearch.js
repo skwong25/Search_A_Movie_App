@@ -4,23 +4,35 @@
  */
 
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 const SubmitSearch = (props) => {
-    console.log("3. I render search and refresh buttons");
+    console.log("3. search / refresh buttons");
+    
     if (!props.searchStatus) {
         return ( 
             <div>
-                <button className="Search" onClick={props.handleClick} >Search</button> 
+                <Grid item xs={12} sm={4} lg={4} align="right">
+                    <Paper align="right">
+                        <Button fullWidth variant="contained" style={{ color: "white", backgroundColor: "mediumvioletred" }} onClick={props.handleClick}>Search</Button> 
+                    </Paper>
+                </Grid>
             </div>
         ) 
     } else {
         return (
             <div>
-                <br/>
-                <button className="Refresh" onClick={()=>window.location.reload(false)}>Refresh</button>
+                <Grid item xs={12} sm={4} lg={4} >
+                    <Paper>
+                        <Button fullWidth variant="contained" color="primary" className="Refresh" onClick={()=>window.location.reload(false)}>Refresh</Button>
+                    </Paper>
+                </Grid>
             </div>
         )
     };
 }
 
 export default SubmitSearch;
+

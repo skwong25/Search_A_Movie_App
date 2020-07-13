@@ -6,55 +6,43 @@
 import React from 'react';
 import sortMethods from './sortMethods';
 
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select'; 
+import MenuItem from '@material-ui/core/MenuItem';
+
 const SortResults = (props) => {
     console.log("2. I let you decide how to sort results");
     const disabled = props.disabled 
 
-    let newArray = [];
+    let arrayCriteria = [];
     for (let constant in sortMethods) {
-        newArray.push(
-            <option 
-                key={sortMethods[constant].name} 
-                value={sortMethods[constant].name}
-            >
+        arrayCriteria.push(
+            <MenuItem key={sortMethods[constant].name} value={sortMethods[constant].name} style={{color: "mediumvioletred"}}>
                 {sortMethods[constant].userMessage}
-            </option>)
+            </MenuItem>)
     };      
 
     if (props.searchStatus) {      
         return (
             <div>
-                <label htmlFor="sort"> Sort by: </label>
-                <select id="sort" name="sort" disabled={disabled} onChange={props.updateSortMethod}>
-                    {newArray}
-                </select>
+                <Grid item xs={12} md={4} lg={4} align="right">
+                    <Paper>
+                        <Box p={2}>
+                            <InputLabel id="sort" align="right"> Sort by: </InputLabel>
+                            <Select id="sort" name="sort" disabled={disabled} onChange={props.updateSortMethod}>
+                                {arrayCriteria}
+                            </Select>
+                        </Box>
+                    </Paper>
+                </Grid>
             </div>
         )
     } else {
         return null;
     };
 }
-
-/*
-    if (props.searchStatus) {      
-        return (
-            <div>
-                <br/>
-                <label htmlFor="sort"> Sort by: </label>
-                <select id="sort" name="sort" disabled={disabled} onChange={props.updateSortCriteria}>
-                    <option value={null}>Select one of the below</option>
-                    <option value="imdbID ascending">imdbID no.</option>
-                    <option value="Title ascending">Title A-Z</option>
-                    <option value="Title descending">Title Z-A</option>
-                    <option value="Year ascending">Year (Oldest - Newest)</option>
-                    <option value="Year descending">Year (Newest - Oldest)</option>
-                </select>
-            </div>
-        )
-  } else {
-      return null;
-  };
-}
-*/
 
 export default SortResults;

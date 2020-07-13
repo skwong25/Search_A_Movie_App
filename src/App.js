@@ -31,12 +31,10 @@
  * When the user performs a search, the input field/button should be disabled, and a progress spinner should be displayed
  * Write a unit test for sorting films alphabetically/by release date
  * When the use is performing a search, we can log how long the search took..?
- * 
- * 
- *    
  */
 import React from 'react';
 import './App.css';
+
 
 import InputField from './InputField';
 import SubmitSearch from './SubmitSearch';
@@ -44,6 +42,11 @@ import SortResults from './SortResults';
 import Output from './Output';
 import {Loading} from './Loading';
 import sortMethods  from './sortMethods';
+import { Obj } from './styleMe';
+
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 class App extends React.Component {
 
@@ -107,42 +110,70 @@ class App extends React.Component {
         };
     }
 
-    render() {
+    render() { 
+
+        let classes = Obj.classes;
+        
         return (
-            <div className="App">
-                <InputField 
-                    searchStatus={this.state.isPerformingSearch}
-                    updateKeyword={this.updateKeyword} 
-                    updateNoOfResults={this.updateNoOfResults}
-                />
-
-                <SortResults
-                    searchStatus={this.state.isPerformingSearch}
-                    updateSortMethod={this.updateSortMethod}
-                    disabled={this.state.results === 1}
-                />
-
-                <SubmitSearch
-                    searchStatus={this.state.isPerformingSearch}
-                    handleClick={this.fetchMovieData} 
-                />
-
-                <Output 
-                    noOfResults={this.state.results}
-                    movieData={this.state.movie}
-                    sortObject={this.state.sort}
-                    searchStatus={this.state.isPerformingSearch}
-                    keyword={this.state.keyword}
-                />
-
-                <Loading
-                searchStatus={this.state.isPerformingSearch}
-                />
+            <div>
+                <Grid container className={classes.root} spacing={2} direction="column">
+                    <Box paddingBottom={5}>
+                    <Grid item align="center">
+                        {/* Header */}
+                        <div className="Header" style={{ color: "white", backgroundColor: "mediumvioletred" }}>
+                            <header>
+                                <Box p={5}>
+                                    <Typography align="center" component="h1" variant="h5">
+                                        @( * ____ * )@      
+                                    </Typography>
+                                </Box>
+                            </header>
+                        </div>
+                    </Grid>
+                    </Box>
+                    <Grid item align="center">   
+                        {/* Loading Message */}
+                        <Loading
+                            searchStatus={this.state.isPerformingSearch}
+                        />
+                    </Grid> 
+                    <Grid item align="center">
+                        {/* Input Fields */}
+                        <InputField 
+                            searchStatus={this.state.isPerformingSearch}
+                            updateKeyword={this.updateKeyword} 
+                            updateNoOfResults={this.updateNoOfResults}
+                        />
+                    </Grid>
+                    <Grid item align="center">
+                        {/* Sort Results */}
+                        <SortResults
+                            searchStatus={this.state.isPerformingSearch}
+                            updateSortMethod={this.updateSortMethod}
+                            disabled={this.state.results === 1}
+                        />
+                    </Grid> 
+                    <Grid item align="center">
+                        {/* Search Button */}
+                        <SubmitSearch
+                            searchStatus={this.state.isPerformingSearch}
+                            handleClick={this.fetchMovieData} 
+                        />    
+                    </Grid>
+                    <Grid item align="center">
+                        {/* Output Text */}
+                        <Output 
+                            noOfResults={this.state.results}
+                            movieData={this.state.movie}
+                            sortObject={this.state.sort}
+                            searchStatus={this.state.isPerformingSearch}
+                            keyword={this.state.keyword}
+                        />
+                    </Grid>
+            </Grid>
             </div>
         );
     }
 }
 
 export default App;
-
-
