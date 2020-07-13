@@ -5,6 +5,7 @@
 
 import React from 'react';
 import sortMethods from './sortMethods';
+import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -14,8 +15,13 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const SortResults = (props) => {
-    console.log("2. I let you decide how to sort results");
-    const disabled = props.disabled 
+    console.log("2. Decides how to sort results");
+    const isItDisabled = props.isItDisabled;
+    let sortCriteria;
+    if (props.sort) { sortCriteria = props.sort.name };
+    console.log("The sortCriteria should never be undefined: " + sortCriteria) 
+
+    // Below code creates an array of available sort criterias, to form the dropdown list
 
     let arrayCriteria = [];
     for (let constant in sortMethods) {
@@ -32,7 +38,7 @@ const SortResults = (props) => {
                     <Paper>
                         <Box p={2}>
                             <InputLabel id="sort" align="right"> Sort by: </InputLabel>
-                            <Select id="sort" name="sort" disabled={disabled} onChange={props.updateSortMethod}>
+                            <Select value={sortCriteria || ""} id="sort" name="sort" disabled={isItDisabled} onChange={props.updateSortMethod}>
                                 {arrayCriteria}
                             </Select>
                         </Box>
@@ -46,3 +52,10 @@ const SortResults = (props) => {
 }
 
 export default SortResults;
+
+SortResults.propTypes = {
+    searchStatus: PropTypes.bool.isRequired,
+    updateSortMethod: PropTypes.func.isRequired, 
+    isItDisabled: PropTypes.bool.isRequired,
+    sort: PropTypes.object,
+};

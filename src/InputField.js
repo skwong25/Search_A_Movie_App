@@ -4,7 +4,9 @@
  */
 
 import React from 'react';
-import Title from './Title'; 
+import Title from './Title';
+import PropTypes from 'prop-types';
+ 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Input from '@material-ui/core/Input';
@@ -35,9 +37,9 @@ const instructions = [
 ]
 
 const instructionsList = instructions.map((value)=> (
-    <div>
+    <div key={value[0]}>
         <Divider component="li"/>
-        <ListItem key={value[0]} alignItems="flex-start" >
+        <ListItem alignItems="flex-start" >
             <ListItemText primary={value[0] + value[1]} secondary={value[2]}/>
         </ListItem>
     </div>
@@ -46,9 +48,9 @@ const instructionsList = instructions.map((value)=> (
         return ( 
             <div>
                 {/* Search Instructions */}
-                <Grid container spacing={2} justify="center" paddingTop={10}>
-                    <Grid item margin={20}>
-                        <Grid container direction="row" spacing="2">
+                <Grid container spacing={2} justify="center" >
+                    <Grid item>
+                        <Grid container direction="row" spacing={2}>
                             <Grid item xs={12} md={7} lg={7}> 
                                 <Paper align="left">
                                     <Box paddingLeft={2} paddingTop={1}>
@@ -105,7 +107,7 @@ const instructionsList = instructions.map((value)=> (
                                 <Paper>
                                     <Box p={1} m={0}>
                                         <InputLabel id="number">No. of Results</InputLabel>
-                                        <Select id="number" name="number" data-testid="dropdown" onChange={props.updateNoOfResults}>
+                                        <Select value={props.noOfResults} id="number" name="number" data-testid="dropdown" onChange={props.updateNoOfResults}>
                                             {numbers.map((number)=> (
                                                 <MenuItem key={number} value={number}>
                                                     {number}
@@ -126,3 +128,12 @@ const instructionsList = instructions.map((value)=> (
 }
 
 export default InputField;
+
+InputField.propTypes = {
+    searchStatus:   PropTypes.bool.isRequired,
+    noOfResults:    PropTypes.number.isRequired, 
+    updateKeyword:  PropTypes.func.isRequired,
+    updateNoOfResults: PropTypes.func.isRequired,
+};
+
+// adding .isRequired means we will get a console warning if the prop ISN'T sent
