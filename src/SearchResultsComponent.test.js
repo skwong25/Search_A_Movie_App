@@ -14,12 +14,12 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Output from './Output';
-import sortMethods from './sortMethods';
+import SearchResults from './SearchResultsComponent';
+import sortCriteria from './sortCriteriaObjects';
 
 test('test1 - renders movie name, year, Imdb ID and an image', () => {
     render( 
-        <Output 
+        <SearchResults 
             searchStatus="true" 
             movieData={[{ Title: "Pocahontas", Year: "1990", imdbID: "012345", Poster: "image.jpg" }]} 
         /> 
@@ -36,7 +36,7 @@ test('test1 - renders movie name, year, Imdb ID and an image', () => {
 
 test('test1.1 - renders "N/A" if any property value in the API response is missing', () => {
     render( 
-        <Output 
+        <SearchResults 
             searchStatus="true" 
             movieData={[{ Title: null, Year: null, imdbID: null, Poster: null }]} 
             /> 
@@ -54,7 +54,7 @@ test('test1.1 - renders "N/A" if any property value in the API response is missi
 
 test('test2 - renders the correct number of search results as selected by user', () => {
   render( 
-      <Output 
+      <SearchResults 
           noOfResults="3" 
           searchStatus="true" 
           movieData={[ 
@@ -74,8 +74,8 @@ describe('sort function', () => {
   
     test('test 3: sorts results in alphabetical order if "Title A-Z" sort criteria selected by user', async () => {
         await render( 
-            <Output 
-                sortObject={sortMethods['TITLE_ASCENDING']}
+            <SearchResults 
+                sortObject={sortCriteria['TITLE_ASCENDING']}
                 noOfResults="5" 
                 searchStatus="true" 
                 movieData={[
@@ -107,8 +107,8 @@ describe('sort function', () => {
 
     test('test 4: sorts results in chronological order if "Year - Oldest-Newest" sort criteria selected by user', async () => {
         render( 
-            <Output 
-                sortObject={sortMethods.YEAR_ASCENDING} 
+            <SearchResults 
+                sortObject={sortCriteria.YEAR_ASCENDING} 
                 noOfResults="5" 
                 searchStatus="true" 
                 movieData={[ 
@@ -139,8 +139,8 @@ describe('sort function', () => {
 
     test('test 5: sorts results by ascending ID number if "imdbID no." sort criteria selected by user', () => {
         render( 
-            <Output 
-                sortObject={sortMethods.IMBD} 
+            <SearchResults 
+                sortObject={sortCriteria.IMBD} 
                 noOfResults="5" 
                 searchStatus="true" 
                 movieData={[  

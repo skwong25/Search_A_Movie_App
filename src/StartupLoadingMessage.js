@@ -10,10 +10,10 @@
 
 import React from 'react';  
 import Grid from '@material-ui/core/Grid';
-import Title from './Title';
+import Title from './TitleElement';
 import PropTypes from 'prop-types'; 
 
-export class Loading extends React.Component {
+export class StartupLoadingMessage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -43,7 +43,7 @@ export class Loading extends React.Component {
     }
 }
 
-Loading.propTypes = {
+StartupLoadingMessage.propTypes = {
     searchStatus:   PropTypes.bool.isRequired,
 };
 

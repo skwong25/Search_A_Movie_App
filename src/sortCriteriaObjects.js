@@ -11,7 +11,7 @@ function sortMovies (a, b, propertyName) {
     return comparison;
 }
 
-const sortMethods = {
+const sortCriteria= {
 
         IMBDID : {
             name: "IMBDID",
@@ -59,6 +59,6 @@ const sortMethods = {
         },
 }
 
-export default sortMethods;
+export default sortCriteria;
 
 // struggling to export/import our sortMethods, sortMovies correctly - will revisit :) 

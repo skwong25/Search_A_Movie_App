@@ -5,10 +5,10 @@
 
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import SortResults from './SortResults';
+import SortCriteriaDropdown from './SortCriteriaDropdownComponent';
 
 test( 'renders dropdown list of sort criteria options', () => {
-    render( <SortResults disabled={false} searchStatus="true"/>);
+    render( <SortCriteriaDropdown disabled={false} searchStatus="true"/>);
     fireEvent.mouseDown(screen.getByRole('button'));
     expect(screen.getByRole("option", {name: "Title A-Z"})).toBeInTheDocument();
     expect(screen.getByRole("option", {name: "Title Z-A"})).toBeInTheDocument();
