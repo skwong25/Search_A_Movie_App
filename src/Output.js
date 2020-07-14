@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Obj } from './styleMe'; 
 import Grid from '@material-ui/core/Grid';
@@ -84,4 +85,12 @@ const Output = (props) => {
 } 
 
 export default Output;
+
+Output.propTypes = {
+    noOfResults: PropTypes.number.isRequired, 
+    movieData: PropTypes.array, // No isRequired as initial props passed === null
+    sortObject: PropTypes.object, // No isRequired as initial props passed === null
+    searchStatus: PropTypes.bool.isRequired,
+    keyword: PropTypes.string.isRequired, // Both null & empty string "" evaluate to falsey 
+};
 

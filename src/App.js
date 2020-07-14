@@ -53,11 +53,11 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            keyword: null, 
+            keyword: "", 
             movie: null,
             results: 1,
             isPerformingSearch: false,
-            sort: null, 
+            sort: null,  // or Object 
         }
 
         this.updateKeyword = this.updateKeyword.bind(this);
@@ -79,15 +79,14 @@ class App extends React.Component {
     updateSortMethod(e) {
         if (e) {
             const sortName = e.target.value; // gets constant name E.g: TITLE_ASCENDING
-            console.log("constant: " + sortName);
-            const sortObject = sortMethods[sortName]; 
-            console.log(sortObject.category);
+            const sortObject = sortMethods[sortName]; // evaluates to enumerator object accessed via imported JS module 
+            console.log("constant: " + sortName + ", category: " + sortObject.category) ;
             this.setState({sort: sortObject}); // this should update state to the relevant Object 
         }
     }
 
     fetchMovieData() {
-        if (this.state.keyword) {
+        if (this.state.keyword) { // "" empty string both evaluates to falsey and fulfills propTypes.string validation
             console.log("the search begins...with " + this.state.keyword)
             const wordQuery = this.state.keyword;
             const apiKey = '9990ead4';
@@ -141,16 +140,19 @@ class App extends React.Component {
                         {/* Input Fields */}
                         <InputField 
                             searchStatus={this.state.isPerformingSearch}
+                            noOfResults={this.state.results}
                             updateKeyword={this.updateKeyword} 
                             updateNoOfResults={this.updateNoOfResults}
+                            
                         />
                     </Grid>
                     <Grid item align="center">
                         {/* Sort Results */}
                         <SortResults
                             searchStatus={this.state.isPerformingSearch}
+                            sort={this.state.sort} //  { name: ... , userMessage: ... , category: ... }
                             updateSortMethod={this.updateSortMethod}
-                            disabled={this.state.results === 1}
+                            isItDisabled={this.state.results === 1}
                         />
                     </Grid> 
                     <Grid item align="center">

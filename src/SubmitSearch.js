@@ -4,6 +4,8 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -35,4 +37,9 @@ const SubmitSearch = (props) => {
 }
 
 export default SubmitSearch;
+
+SubmitSearch.propTypes = {
+    searchStatus: PropTypes.bool.isRequired,
+    handleClick: PropTypes.func.isRequired,
+}; 
 

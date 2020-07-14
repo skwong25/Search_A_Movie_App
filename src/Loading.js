@@ -10,7 +10,8 @@
 
 import React from 'react';  
 import Grid from '@material-ui/core/Grid';
-import Title from './Title'; 
+import Title from './Title';
+import PropTypes from 'prop-types'; 
 
 export class Loading extends React.Component {
 
@@ -42,5 +43,8 @@ export class Loading extends React.Component {
     }
 }
 
+Loading.propTypes = {
+    searchStatus:   PropTypes.bool.isRequired,
+};
 
   
