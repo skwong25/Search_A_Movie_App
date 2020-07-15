@@ -23,10 +23,10 @@ const SearchResults = (props) => {
     let classes = StyleObject.classes;
      
     if (props.movieData) {
-        console.log("Output.js has received movieData props")
+        console.log("Output.js has successfully received movieData props")
         const movieArray = props.movieData; 
-        const noOfReturnedResults= movieArray.length; 
-        const noOfResults = props.noOfResults;
+        const noOfReturnedResults= movieArray.length;       // How many search results returned 
+        const noOfResults = props.noOfResults;             // How many search results requested - default: '10' 
         let shortenedArray = movieArray.slice(0, noOfResults);
         let newArray = shortenedArray; 
 
@@ -117,7 +117,7 @@ const SearchResults = (props) => {
 export default SearchResults;
 
 SearchResults.propTypes = {
-    noOfResults: PropTypes.number.isRequired, 
+    noOfResults: PropTypes.number.isRequired,  // If none selected, defaults to '10' 
     movieData: PropTypes.array, // No isRequired as initial props passed === null
     sortObject: PropTypes.object, // No isRequired as initial props passed === null
     searchStatus: PropTypes.bool.isRequired,

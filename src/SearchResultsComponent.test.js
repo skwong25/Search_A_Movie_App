@@ -13,6 +13,7 @@
  */
 
 import React from 'react';
+import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react';
 import SearchResults from './SearchResultsComponent';
 import sortCriteria from './sortCriteriaObjects';
@@ -20,15 +21,20 @@ import sortCriteria from './sortCriteriaObjects';
 test('test1 - renders movie name, year, Imdb ID and an image', () => {
     render( 
         <SearchResults 
-            searchStatus="true" 
+            keyword=""
+            noOfResults={10}
+            searchStatus={true} 
             movieData={[{ Title: "Pocahontas", Year: "1990", imdbID: "012345", Poster: "image.jpg" }]} 
         /> 
     );
-    let element = screen.getByText(/movie/i);
-    expect(element.textContent).toBe("Movie 1: Pocahontas");
+    let element = screen.getByText(/title/i);
+    expect(element.textContent).toBe("Title: Pocahontas");
     
-    element = screen.getByText(/year/i)
-    expect(element.textContent).toBe("Year: 1990   IMBD ID.: 012345");
+    element = screen.getByText(/released/i)
+    expect(element.textContent).toBe("Released in: 1990");
+
+    element = screen.getByText(/IMDB ID.:/i)
+    expect(element.textContent).toBe("IMDB ID.: 012345");
     
     element = screen.getByAltText("no graphic available");
     expect(element).toBeInTheDocument();
@@ -37,7 +43,9 @@ test('test1 - renders movie name, year, Imdb ID and an image', () => {
 test('test1.1 - renders "N/A" if any property value in the API response is missing', () => {
     render( 
         <SearchResults 
-            searchStatus="true" 
+            keyword=""
+            noOfResults={10}
+            searchStatus={true} 
             movieData={[{ Title: null, Year: null, imdbID: null, Poster: null }]} 
             /> 
     );
@@ -52,20 +60,21 @@ test('test1.1 - renders "N/A" if any property value in the API response is missi
 });
 
 
-test('test2 - renders the correct number of search results as selected by user', () => {
-  render( 
-      <SearchResults 
-          noOfResults="3" 
-          searchStatus="true" 
-          movieData={[ 
-              { Title: "1", Year: "1990", imdbID: "01"}, 
-              { Title: "2", Year: "1991", imdbID: "02"}, 
-              { Title: "3", Year: "1992", imdbID: "03"},
-              { Title: "4", Year: "1993", imdbID: "04"},
-              { Title: "5", Year: "1994", imdbID: "05"},
-          ]} 
-      />
-  ); 
+test('test2 - renders the correct number of search results as selected by user, if available', () => {
+    render( 
+        <SearchResults 
+            keyword=""
+            noOfResults={3} 
+            searchStatus={true} 
+            movieData={[ 
+                { Title: "1", Year: "1990", imdbID: "01"}, 
+                { Title: "2", Year: "1991", imdbID: "02"}, 
+                { Title: "3", Year: "1992", imdbID: "03"},
+                { Title: "4", Year: "1993", imdbID: "04"},
+                { Title: "5", Year: "1994", imdbID: "05"},
+            ]} 
+        />
+    ); 
   let element = screen.getByTestId("finalMovies"); // This is no longer working. 
   expect(element.children.length).toBe(3);
 });
@@ -76,8 +85,9 @@ describe('sort function', () => {
         await render( 
             <SearchResults 
                 sortObject={sortCriteria['TITLE_ASCENDING']}
-                noOfResults="5" 
-                searchStatus="true" 
+                keyword=""
+                noOfResults={5} 
+                searchStatus={true} 
                 movieData={[
                     { Title: "P", Year: "1994", imdbID: "01"}, 
                     { Title: "O", Year: "1993", imdbID: "02"}, 
@@ -109,8 +119,9 @@ describe('sort function', () => {
         render( 
             <SearchResults 
                 sortObject={sortCriteria.YEAR_ASCENDING} 
-                noOfResults="5" 
-                searchStatus="true" 
+                keyword=""
+                noOfResults={5} 
+                searchStatus={true} 
                 movieData={[ 
                     { Title: "P", Year: "1994", imdbID: "01"}, 
                     { Title: "O", Year: "1993", imdbID: "02"}, 
@@ -141,8 +152,9 @@ describe('sort function', () => {
         render( 
             <SearchResults 
                 sortObject={sortCriteria.IMBD} 
-                noOfResults="5" 
-                searchStatus="true" 
+                keyword=""
+                noOfResults={5} 
+                searchStatus={true} 
                 movieData={[  
                     { Title: "P", Year: "1994", imdbID: "01"}, 
                     { Title: "O", Year: "1993", imdbID: "02"}, 

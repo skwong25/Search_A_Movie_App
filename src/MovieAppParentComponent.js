@@ -109,7 +109,7 @@ class MovieApp extends React.Component {
             <div>
                 <header>
                 {/* Header */}
-                <AppBar position="static" paddingBottom={5}>
+                <AppBar position="static">
                     <Toolbar 
                         className={classes.toolbar} 
                         
