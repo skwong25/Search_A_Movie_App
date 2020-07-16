@@ -23,15 +23,19 @@ const SortCriteriaDropdown = (props) => {
 
     const isItDisabled = props.isItDisabled;
     let noOfResults = props.noOfResults;
-    let noOfReturnedResults;
-    if (props.movieData) {noOfReturnedResults = props.movieData.length};
-    let chosenSortCriteria;
-    if (props.sort) { chosenSortCriteria = props.sort.name };
+    let movieData = props.movieData;
 
-    // Code verifies if the number of returned results is as selected. Number displays green / red correspondingly. 
+    // Code verifies if the number of returned results is as selected. Number displays purple / pink correspondingly. 
     // This has been manually tested with keyword 'Babadook' 
+    let noOfReturnedResults;
+    if (movieData) {
+        noOfReturnedResults = movieData.length >= noOfResults? noOfResults : movieData.length
+    };
     let isEnoughResults = {color: "rebeccapurple"}
     if ( noOfReturnedResults < noOfResults ) { isEnoughResults = {color: "mediumvioletred"} }; 
+
+    let chosenSortCriteria;
+    if (props.sort) { chosenSortCriteria = props.sort.name };
 
     // Below code creates an array of available sort criterias, to form the dropdown list
     let arrayCriteria = [];

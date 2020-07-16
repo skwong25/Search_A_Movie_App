@@ -17,28 +17,30 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const SearchResults = (props) => {
 
-    console.log("4. sorts & displays results");
-    console.log("searchStatus:" + props.searchStatus + " keyword: " + props.keyword);
+    console.log("4. sorts & displays results, searchStatus:" + props.searchStatus + "  & keyword: " + props.keyword);
 
     let classes = StyleObject.classes;
      
     if (props.movieData) {
         console.log("Output.js has successfully received movieData props")
-        const movieArray = props.movieData; 
-        const noOfReturnedResults= movieArray.length;       // How many search results returned 
-        const noOfResults = props.noOfResults;             // How many search results requested - default: '10' 
+        const movieArray = props.movieData;             // available results  
+        const noOfResults = props.noOfResults;         // How many search results requested - default: '10' 
+        const noOfReturnedResults = movieArray.length >= noOfResults? noOfResults : movieArray.length  // How many search results returned 
         let shortenedArray = movieArray.slice(0, noOfResults);
         let newArray = shortenedArray; 
 
+        
+        // For eg, if it returns 10 but we only want 5, the number displayed will be 5 
         if (props.sortObject) {
             let sortObject = props.sortObject;
-            console.log("searchStatus: " + props.searchStatus + " / Sort criteria: " + sortObject.userMessage)
+            console.log("Sort criteria: " + sortObject.userMessage)
             newArray = shortenedArray.sort(sortObject.comparator); 
         };
-
-        const movies = newArray.map((movie, index) => {  
+        
+        const movies = newArray.map((movie, index) => { 
+            let indexPlus = index + 1  
             return ( 
-                <div key={movie.imdbID}>
+                <div key={movie.imdbID} data-testid={ "SK" + indexPlus }>
                     <Box p={2} component="div" overflow="hidden">
                         <Grid item key={movie.imdbID} align="left   ">
                             <Paper elevation={1} style={{ maxHeight: "900px" }}> 
@@ -54,14 +56,15 @@ const SearchResults = (props) => {
                                                     <ListItemText secondary={index+1 + "/" + noOfReturnedResults}/>
                                                 </ListItem>
                                                 <ListItem>
-                                                    <ListItemText 
-                                                        primary= { "Title: " + movie.Title || "N/A"} 
-                                                        secondary={"Released in: " + movie.Year || "N/A" }>
+                                                    <ListItemText
+                                                        data-testid={ "Movie " + indexPlus }
+                                                        primary = { movie.Title? "Title: " + movie.Title : "Title: N/A" }
+                                                        secondary={ movie.Year? "Released in: " + movie.Year : "Released in: N/A" }>
                                                     </ListItemText>
                                                 </ListItem>
                                                 <ListItem>
                                                     <ListItemText
-                                                        secondary={"IMDB ID.: " + movie.imdbID  || "N/A" }>
+                                                        secondary={ movie.imdbID? "IMDB ID.: " + movie.imdbID : "IMDB ID.: N/A" }>
                                                     </ListItemText>
                                                 </ListItem>
                                                 <ListItem>

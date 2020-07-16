@@ -107,7 +107,13 @@ const instructionsList = instructions.map((value)=> (
                                 <Paper>
                                     <Box p={1} m={0}>
                                         <InputLabel id="number">No. of Results</InputLabel>
-                                        <Select value={props.noOfResults} id="number" name="number" data-testid="dropdown" onChange={props.updateNoOfResults}>
+                                        <Select 
+                                            value={props.noOfResults} 
+                                            id="number" 
+                                            name="number" 
+                                            data-testid="dropdown" 
+                                            onChange={props.updateNoOfResults}
+                                        >
                                             {numbers.map((number)=> (
                                                 <MenuItem key={number} value={number}>
                                                     {number}

@@ -28,7 +28,7 @@ export class StartupLoadingMessage extends React.Component {
     }
 
     render() {
-        console.log("0. I am a loading message!" + this.props.searchStatus + this.state.isLoading);
+        console.log("0. Loading message" + this.props.searchStatus + this.state.isLoading);
         if (this.state.isLoading) {
             return (
                 <div>

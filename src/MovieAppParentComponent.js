@@ -93,7 +93,7 @@ class MovieApp extends React.Component {
                 if (data.Response === "False") { 
                     alert(data.Error);
                 } else {
-                    console.log("did we get here?"); 
+                    console.log("fetch request has been successful"); 
                     const movieData = data.Search; // Films as an Array of key-value pairs [ {}, {}, {}] 
                     this.setState({movie: movieData});
                     this.setState({isPerformingSearch: true});
