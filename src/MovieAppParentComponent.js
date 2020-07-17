@@ -87,6 +87,8 @@ class MovieApp extends React.Component {
             const url = 'http://www.omdbapi.com/?';
             const queryParams = 's='; 
             const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery;
+            const main = document.getElementById("loading");
+            main.innerHTML = "<p>...SEARCHING..."
              
             fetch(endpoint)
             .then(response => response.json())  
@@ -98,6 +100,7 @@ class MovieApp extends React.Component {
                     const movieData = data.Search; // Films as an Array of key-value pairs [ {}, {}, {}] 
                     this.setState({movie: movieData});
                     this.setState({isPerformingSearch: true});
+                    main.innerHTML = "";
                 };
             }) 
         };
@@ -113,13 +116,10 @@ class MovieApp extends React.Component {
                 <AppBar position="static">
                     <Toolbar 
                         className={classes.toolbar} 
-                        
                         style={{ 
                             color: "white", 
                             backgroundImage: "url('../images/MovieBanner.png')",
-                            // maskImage: "url('../images/thisIsTheMask.png')", // Not sure why this doesnae work
                         }}
-
                     >
                         <Button>
                         <a href="https://www.bbcgoodfood.com/user/4010681/recipe/perfect-popcorn" target="_blank" rel="noopener noreferrer">
@@ -140,11 +140,9 @@ class MovieApp extends React.Component {
                 </AppBar>
                 </header>
                 <Grid container className={classes.root} spacing={2} direction="column">
-                    <Grid item align="center">   
-                        {/* Loading Message */}
-                        <StartupLoadingMessage
-                            searchStatus={this.state.isPerformingSearch}
-                        />
+                    <Grid item align="center"> 
+                        {/* StartUp Loading Message */}  
+                        <StartupLoadingMessage/>
                     </Grid> 
                     <Grid item align="center">
                         {/* Input Fields */}
@@ -182,6 +180,8 @@ class MovieApp extends React.Component {
                             searchStatus={this.state.isPerformingSearch}
                             keyword={this.state.keyword}
                         />
+                        {/* Search Loading Message */}
+                        <div id="loading"></div>
                     </Grid>
             </Grid>
             </div>
