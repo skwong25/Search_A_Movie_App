@@ -34,6 +34,7 @@ import {StartupLoadingMessage} from './StartupLoadingMessage';
 import sortCriteria  from './sortCriteriaObjects';
 
 import { StyleObject } from './styleObject';
+import notAMagicNumber from './numbers';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -48,7 +49,7 @@ class MovieApp extends React.Component {
         this.state = { 
             keyword: "", 
             movie: null,
-            results: 10,
+            results: notAMagicNumber,
             isPerformingSearch: false,
             sort: null,  // or Object 
         }
@@ -73,14 +74,14 @@ class MovieApp extends React.Component {
         if (e) {
             const sortName = e.target.value; // gets constant name E.g: TITLE_ASCENDING
             const sortObject = sortCriteria[sortName]; // evaluates to enumerator object accessed via imported JS module 
-            console.log("constant: " + sortName + ", category: " + sortObject.category) ;
+            console.log("updating sort method with constant: " + sortName + ", category: " + sortObject.category) ;
             this.setState({sort: sortObject}); // this should update state to the relevant Object 
         }
     }
 
     fetchMovieData() {
         if (this.state.keyword) { // "" empty string both evaluates to falsey and fulfills propTypes.string validation
-            console.log("the search begins...with " + this.state.keyword)
+            console.log("we are about to make a fetch request with " + this.state.keyword)
             const wordQuery = this.state.keyword;
             const apiKey = '9990ead4';
             const url = 'http://www.omdbapi.com/?';
@@ -115,16 +116,25 @@ class MovieApp extends React.Component {
                         
                         style={{ 
                             color: "white", 
-                            // backgroundColor: "mediumvioletred",
                             backgroundImage: "url('../images/MovieBanner.png')",
+                            // maskImage: "url('../images/thisIsTheMask.png')", // Not sure why this doesnae work
                         }}
+
                     >
                         <Button>
                         <a href="https://www.bbcgoodfood.com/user/4010681/recipe/perfect-popcorn" target="_blank" rel="noopener noreferrer">
                             <img alt="logo" src="../images/popcornFavicon.ico" />
                         </a>
                         </Button>
-                        <Typography variant="h6" className={classes.title}>Welcome to Movie App
+                        <Typography 
+                            style={{ 
+                                color: "white", 
+                                backgroundColor: "grey",
+                            }}
+                            variant="h6" 
+                            className={classes.title}
+                        >
+                            Welcome to RB's Movie App
                         </Typography>
                     </Toolbar>
                 </AppBar>

@@ -23,8 +23,10 @@ export class StartupLoadingMessage extends React.Component {
 
     componentDidMount() {
       this.setState({isLoading: true});
+      console.log("state: " + this.state.isLoading);
       setTimeout(() => 
           this.setState({isLoading: false}), 1000);
+          console.log("state: " + this.state.isLoading);
     }
 
     render() {

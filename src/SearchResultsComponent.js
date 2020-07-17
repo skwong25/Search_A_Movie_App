@@ -29,11 +29,10 @@ const SearchResults = (props) => {
         let shortenedArray = movieArray.slice(0, noOfResults);
         let newArray = shortenedArray; 
 
-        
         // For eg, if it returns 10 but we only want 5, the number displayed will be 5 
-        if (props.sortObject) {
+        if (props.sortObject) { 
             let sortObject = props.sortObject;
-            console.log("Sort criteria: " + sortObject.userMessage)
+            console.log("There is a sort criteria: " + sortObject.userMessage)
             newArray = shortenedArray.sort(sortObject.comparator); 
         };
         

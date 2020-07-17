@@ -14,15 +14,20 @@
 
 
 import React from 'react';
-import { waitForElement, render, screen, fireEvent } from '@testing-library/react';
-import App from './App';
-import InputField from './InputField';
-import Output from './Output';
+import "@testing-library/jest-dom/extend-expect";
+import { render, screen, fireEvent } from '@testing-library/react';
+import MovieApp from './MovieAppParentComponent';
+import InputField from './InputFieldComponent';
 
 
-describe("Input field", () => {
+describe("Numbers dropdown", () => {
     test('test 1: renders dropdown menu containing numbers 1-5', () => {
-        const { getByRole } = render(<InputField/>); 
+        const { getByRole } = render(<InputField
+                                        searchStatus={false}
+                                        noOfResults={10}
+                                        updateKeyword={function() {}} 
+                                        updateNoOfResults={function() {}}
+                                    />); 
 
         fireEvent.mouseDown(getByRole('button',{name: "No. of Results"}));
         
@@ -43,18 +48,21 @@ describe("Input field", () => {
     });
 
     test('test 1.1: renders dropdown menu of 3 options', () => {
-        const { getByTestId } = render(<InputField/>);
+        const { getByTestId } = render(
+                                    <InputField
+                                        searchStatus={false}
+                                        noOfResults={10}
+                                        updateKeyword={function() {}} 
+                                        updateNoOfResults={function() {}}
+                                        />); 
         // fireEvent.mouseDown(screen.getByRole('button',{name: "No. of Results"})); // This line is not required.
         const element = getByTestId("dropdown");  
         expect(element.children.length).toBe(3); // It can only find 3 children!? There should be 10.  
     });
 
-    test('test 1.2: selecting a dropdown option updates Output message', () => {
+    test('test 1.2: selecting a dropdown option updates Search Results message', () => {
         render(
-            <App>
-            <InputField/>
-            <Output/>
-            </App>
+            <MovieApp/>
         );
         fireEvent.mouseDown(screen.getByRole('button',{name: "No. of Results"}));        //clicks the button 
         let element = screen.getByRole("option", {name: "5"});                          // finds the option "5" 
@@ -63,20 +71,23 @@ describe("Input field", () => {
     });
 });
 
-describe("Numbers dropdown", () => {
+describe("Input Field", () => {
     test('test 2: renders an empty text input field', () => {
-        const { getByLabelText } = render(<InputField/>);
+        const { getByLabelText } = render(
+            <InputField
+                searchStatus={false}
+                noOfResults={10}
+                updateKeyword={function() {}} 
+                updateNoOfResults={function() {}}
+            />); 
         let element = getByLabelText(/Enter/i);
         expect(element.textContent).toBe("")
-        expect(element).toHaveAttribute('type', 'text')
+        expect(element).toHaveAttribute('type', 'text') 
     });
 
     test('test 2.1: entering a word into input field updates the Output message', () => {
       render(
-          <App>
-          <InputField/>
-          <Output/>
-          </App>
+          <MovieApp/>
       );
     let element = screen.getByLabelText(/Keyword/i);
     fireEvent.change(element, {target: {value: 'notebook'}}) // otherwise accessed via event.target.value

@@ -50,7 +50,7 @@ The project seeks to create a ```clear and simple layout``` for ease of navigati
 
 ## Code Walkthrough
 
-### MovieApp ###
+### Movie App ###
 MovieApp is the Parent Component Class and renders Child Components. It manages state and passes props to its five children. It also executes a HTTP request to API.
 
 ```javascript
@@ -67,7 +67,7 @@ class MovieApp extends React.Component {
         }
 ```
 
-### <InputField ###
+### Input Field ###
 `<InputField/>` renders static text and interactive elements: an input field and dropdown list of numbers. 
 
 When a user types into the input field, this updates MovieApp.state.keyword via MovieApp's updateKeyword() function.
@@ -78,11 +78,15 @@ If a search has been run, InputField will not render the above elements.
 
 <img src="./images/movieAppScreenshot.png" width="450" alt="screenshot1">
 
-### SearchButton ###
+### Search Button ###
 `<SearchButton/>` initially renders a search button. 
 If no keyword has been provided, the search button is inert. 
 
 If a keyword is provided, clicking the search button fires a HTTP GET request to OmDb API via MovieApp's fetchMovieData() function. 
+
+If no data is found, the app fires an alert message. 
+
+<img src="./images/alertScreenshot.png" width="450" alt="screenshot2">
 
 The data returned is an array of nested objects containing information in key-value pairs. Each object represents one movie. The fetchMovieData() function stores this data by updating MovieApp.state.movie.
 
@@ -113,28 +117,60 @@ fetchMovieData() {
 ```
 
 
-### SearchResults ###
+### Search Results ###
 If a search has not been run, `<SearchResults/>` renders responsive text echoing the current value of the input field and number of results. 
-If a search has been run, `<SearchResults/>` renders search results.
-The search results display an image, title, release date (year) and ImDb ID no for each movie. A hyperlink links to that movie's ImDb page.
+If a search has been run, `<SearchResults/>` receives MovieApp.state.movie as props and renders as text and imagery.
+The search results display image, title, release date (year) and ImDb ID no for each movie. A hyperlink links to that movie's ImDb page.
 
-<img src="./searchResultsScreenshot" width="450" alt="screenshot2">
+<img src="./images/movieInfoScreenshot.png" width="450" alt="screenshot3">
 
-### SortCriteriaDropdown ###
-If a search has been run, `<SortCriteriaDropdown/>` renders static text and a dropdown list.
+### Sort Criteria Dropdown ###
+If a search has been run, `<SortCriteriaDropdown/>` renders static text and a dropdown list. Note that when only one search result is returned, the dropdown list is disabled. 
+
+<img src="./images/searchResultsScreenshot.png" width="450" alt="screenshot4">
 
 The static text allows the user to see if the number of results returned is as per their selection. 
 If it is, the text is purple. If it is not, the text will be pink.
 
-The dropdown list allows movie results to be sorted by several categories such as 'Title A-Z'.
+<img src="./images/lessResultsScreenshot.png" width="450" alt="screenshot5">
+
+The dropdown list allows movie results to be sorted by several categories such as 'Title A-Z'. 
+
+<img src="./images/sortDropdownScreenshot.png" width="450" alt="screenshot6">
 
 When a user selects an option, this updates MovieApp.state.sort with the relevant Object from SortCriteriaObjects.js.
  `<SearchResults/>` receives this Object as props, sorts the results accordingly and re-renders.
 
-
-### SortCriteriaObjects.js ###
+### Sort Criteria Objects.js ###
 A Module containing enumerated Objects, imported and used by `<MovieApp/>` and `<SortCriteriaDropdown/>`
 The Object holds information for each sort category, including a callback comparator function ready to be passed as an argument to array.sort() to sort search results. 
+
+```javascript
+function sortMovies (a, b, propertyName) {
+    const movieA = a[propertyName]; 
+    const movieB = b[propertyName];         
+    let comparison = 0;
+
+    if (movieA > movieB) {
+        comparison = 1
+    } else if (movieA < movieB) {
+        comparison = -1
+    };
+    return comparison;
+}
+
+const sortCriteria= {
+
+        IMBDID : {
+            name: "IMBDID",
+            userMessage: "imdbID no.", 
+            category: "imdbID",
+            comparator(a,b) {
+                return sortMovies(a, b, "imdbID");
+            }
+        },
+```
+
 
 
 ## Getting Started
