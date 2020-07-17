@@ -51,7 +51,7 @@ class MovieApp extends React.Component {
             movie: null,
             results: notAMagicNumber,
             isPerformingSearch: false,
-            sort: null,  // or Object 
+            sort: null,  
         }
 
         this.updateKeyword = this.updateKeyword.bind(this);

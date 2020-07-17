@@ -13,6 +13,7 @@
  */
 
 import React from 'react';
+import "@testing-library/jest-dom/extend-expect";
 import { render, screen, within } from '@testing-library/react';
 import SearchResults from './SearchResultsComponent';
 import sortCriteria from './sortCriteriaObjects';
@@ -36,7 +37,7 @@ test('test1 - renders movie name, year, Imdb ID and an image', () => {
     expect(element.textContent).toBe("IMDB ID.: 012345");
     
     element = screen.getByAltText("no graphic available");
-    // expect(element).toBeInTheDocument(); // Not sure why this not working now ! 
+    expect(element).toBeInTheDocument();  
 });
 
 test('test1.1 - renders "N/A" if any property value in the API response is missing', () => {
@@ -58,7 +59,7 @@ test('test1.1 - renders "N/A" if any property value in the API response is missi
     expect(element.textContent).toBe("IMDB ID.: N/A");
     
     element = screen.getByAltText("no graphic available");
-    // expect(element).toBeInTheDocument();
+    expect(element).toBeInTheDocument();
 });
 
 

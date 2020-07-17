@@ -61,7 +61,7 @@ class MovieApp extends React.Component {
         this.state = { 
             keyword: "", 
             movie: null,
-            results: 10,
+            results: notAMagicNumber,
             isPerformingSearch: false,
             sort: null,  // or Object 
         }
@@ -120,7 +120,18 @@ fetchMovieData() {
 ### Search Results ###
 If a search has not been run, `<SearchResults/>` renders responsive text echoing the current value of the input field and number of results. 
 If a search has been run, `<SearchResults/>` receives MovieApp.state.movie as props and renders as text and imagery.
-The search results display image, title, release date (year) and ImDb ID no for each movie. A hyperlink links to that movie's ImDb page.
+The search results display image, title, release date (year) and ImDb ID no for each movie by mapping through the array of nested objects. A hyperlink links to that movie's ImDb page.
+
+```javascript
+const movies = newArray.map((movie, index) => { 
+            return ( 
+                <div 
+                    key={movie.imdbID} 
+                    data-testid={ "SK" + indexPlus }>   
+                ...
+            )
+}                        
+```
 
 <img src="./images/movieInfoScreenshot.png" width="450" alt="screenshot3">
 
@@ -192,8 +203,36 @@ A successful search result will comprise of lots of additional information about
 
 ## Tests
 
-To run tests, run npm test in Terminal. 
-Describe and show how to run the tests with code examples.
+A test suite is written for each Child Component using React Testing Library and jest. See example below: 
+
+```javascript
+test('test1 - renders movie name, year, Imdb ID and an image', () => {
+    render( 
+        <SearchResults 
+            keyword=""
+            noOfResults={10}
+            searchStatus={true} 
+            movieData={[{ Title: "Pocahontas", Year: "1990", imdbID: "012345", Poster: "image.jpg" }]} 
+        /> 
+    );
+    let element = screen.getByText(/title/i);
+    expect(element.textContent).toBe("Title: Pocahontas");
+    
+    element = screen.getByText(/released/i)
+    expect(element.textContent).toBe("Released in: 1990");
+
+    element = screen.getByText(/IMDB ID.:/i)
+    expect(element.textContent).toBe("IMDB ID.: 012345");
+    
+    element = screen.getByAltText("no graphic available");
+    expect(element).toBeInTheDocument();  
+});
+```
+
+To run tests, run npm test in Terminal. The results will indicate if a test has failed. If all tests pass, you will see the screen below:
+
+<img src="./images/testsScreenshot.png" width="450" alt="screenshot7">
+
 
 ## How to use?
 
@@ -205,83 +244,9 @@ Describe and show how to run the tests with code examples.
 5.  The search results return sorted by ImDb ID. Select from the dropdown list to sort by a different category. 
 6.  To begin a new search, click the Start Over - New Search button. 
 
-## Contribute
-
-Let people know how they can contribute into your project. A contributing guideline will be a big plus.
-
 ## Credits
 
 Thanks to the following resources for debugging wisdom and programming guidance: 
 
 [GitHub Markdown guide](https://guides.github.com/features/mastering-markdown/)
 
-## License
-
-
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
