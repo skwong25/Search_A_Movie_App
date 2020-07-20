@@ -1,32 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# RB's Movie App #
+# Suzanna's Movie App #
 
 ## An App for Movie Searches
 
-Search for movies stored on the ImDb database. 
-
-Users can search via a keyword and select the number of search results they require. 
-
-The app fetches data from an API and displays an image & key information about each movie. 
-The search results can be sorted by title, release date or id.
-
-Text on the page is updated to reflect the current selected no. of results and user input. The app alerts the user if no search results are found for user input. 
+Searches for movies by keyword using the OMDB API, displaying information to the user and allowing them to sort results
 
 User Reviews:
 
-> "The stuff of dreams" - RB herself
-
+> "The stuff of dreams" - Suzanna herself
 > "The OmDb database won't know what's hit it" - Anonymous
 
+## Getting Started
+
+Run `npm start` or `npm test` in Terminal 
 
 ## Motivation
 
 This is my first app I have created to put knowledge learnt of **Javascript** and **HTML** into practice. 
-
 It allowed the opportunity to engage with **React**, using `<Components>` and **CSS** Styling to produce a user interface. 
 
-It also involved establishing a **gitHub** workflow, using *pull requests*, *branches* and *documentation* to maintain a repository in collaboration with ~~my boyfriend~~ reviewers and contributors. 
+It also involved establishing a **gitHub** workflow, using *pull requests*, *branches* and *documentation* to maintain a repository in collaboration with reviewers and contributors. 
 
 
 ## Code Style
@@ -35,15 +28,13 @@ This project follows standard JS codestyle and *contributions should be validate
 
 ## Tech/Framework Used
 
-Built with
-
-    ReactJS
-    Material UI
-    Jest testing framework & React Testing Library
+- [ReactJS](https://reactjs.org/) 
+- [Material UI](https://material-ui.com/)
+- [Jest testing framework](https://jestjs.io/) & [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
+- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Features
-
-This project demonstrates ```rigour through testing``` and validation of input / output. Test written using React Testing Library verify Component behaviour and expected end-user experience. Components implement typechecking of passed props via propTypes. ESLint provides an additional syntax check. The user interface is designed to provide visible validation of user input in several instances, and highlights to a user when a request has not been met via alerts or styling. 
+This project demonstrates ```rigour through testing``` and validation of input / output. Tests written using React Testing Library verify Component behaviour and expected end-user experience. Components implement typechecking of passed props via [propTypes](https://reactjs.org/docs/typechecking-with-proptypes.html). [ESLint](https://eslint.org/) provides an additional syntax check. The user interface is designed to provide visible validation of user input in several instances, and highlights to a user when a request has not been met via alerts or styling. 
 
 The project seeks to create a ```clear and simple layout``` for ease of navigation. Instructions are provided on the opening page as a prompt and assist. Search results are organised in a clear consistent layout for legibility. 
 
@@ -51,7 +42,7 @@ The project seeks to create a ```clear and simple layout``` for ease of navigati
 ## Code Walkthrough
 
 ### Movie App ###
-MovieApp is the Parent Component Class and renders Child Components. It manages state and passes props to its five children. It also executes a HTTP request to API.
+MovieApp is the Parent Component Class and renders Child Components. It manages state and passes props to its five children. It also executes a HTTP request to the OMDb API.
 
 ```javascript
 class MovieApp extends React.Component {
@@ -63,16 +54,16 @@ class MovieApp extends React.Component {
             movie: null,
             results: notAMagicNumber,
             isPerformingSearch: false,
-            sort: null,  // or Object 
+            sort: null,   
         }
 ```
 
 ### Input Field ###
 `<InputField/>` renders static text and interactive elements: an input field and dropdown list of numbers. 
 
-When a user types into the input field, this updates MovieApp.state.keyword via MovieApp's updateKeyword() function.
+When a user types into the input field, this updates `MovieApp.state.keyword` via MovieApp's `updateKeyword()` function.
 
-When a user selects a number from the dropdown, this updates MovieApp.state.results via MovieApp's updateNoOfResults() function. This determines the number of search results that the app returns. If none selected, 10 results are returned by default. 
+When a user selects a number from the dropdown, this updates `MovieApp.state.results` via MovieApp's `updateNoOfResults()` function. This determines the number of search results that the app returns. If none are selected, 10 results are returned by default. 
 
 If a search has been run, InputField will not render the above elements. 
 
@@ -82,15 +73,15 @@ If a search has been run, InputField will not render the above elements.
 `<SearchButton/>` initially renders a search button. 
 If no keyword has been provided, the search button is inert. 
 
-If a keyword is provided, clicking the search button fires a HTTP GET request to OmDb API via MovieApp's fetchMovieData() function. 
+If a keyword is provided, clicking the search button fires a HTTP GET request to OmDb API via MovieApp's `fetchMovieData()` function. 
 
 If no data is found, the app fires an alert message. 
 
 <img src="./images/alertScreenshot.png" width="450" alt="screenshot2">
 
-The data returned is an array of nested objects containing information in key-value pairs. Each object represents one movie. The fetchMovieData() function stores this data by updating MovieApp.state.movie.
+The data returned is an array of nested objects containing information in key-value pairs. Each object represents one movie. `fetchMovieData()` stores this data by updating MovieApp.state.movie.
 
-The fetchMovieData() function updates MovieApp.state.isPerformingSearch to 'true' to indicate a search has been run. 
+fetchMovieData() updates `MovieApp.state.isPerformingSearch` to `true` to indicate a search has been run. 
 
 ```javascript
 fetchMovieData() {
@@ -119,7 +110,8 @@ fetchMovieData() {
 
 ### Search Results ###
 If a search has not been run, `<SearchResults/>` renders responsive text echoing the current value of the input field and number of results. 
-If a search has been run, `<SearchResults/>` receives MovieApp.state.movie as props and renders as text and imagery.
+If a search has been run, `<SearchResults/>` receives `MovieApp.state.movie` as `props` and renders the object as text and imagery.
+
 The search results display image, title, release date (year) and ImDb ID no for each movie by mapping through the array of nested objects. A hyperlink links to that movie's ImDb page.
 
 ```javascript
@@ -149,12 +141,13 @@ The dropdown list allows movie results to be sorted by several categories such a
 
 <img src="./images/sortDropdownScreenshot.png" width="450" alt="screenshot6">
 
-When a user selects an option, this updates MovieApp.state.sort with the relevant Object from SortCriteriaObjects.js.
+When a user selects an option, this updates `MovieApp.state.sort` with the relevant Object imported from SortCriteriaObjects.js.
+
  `<SearchResults/>` receives this Object as props, sorts the results accordingly and re-renders.
 
 ### Sort Criteria Objects.js ###
 A Module containing enumerated Objects, imported and used by `<MovieApp/>` and `<SortCriteriaDropdown/>`
-The Object holds information for each sort category, including a callback comparator function ready to be passed as an argument to array.sort() to sort search results. 
+The Object holds information for each sort category, including a callback comparator function ready to be passed as an argument to `array.sort()` to sort search results. 
 
 ```javascript
 function sortMovies (a, b, propertyName) {
@@ -181,12 +174,6 @@ const sortCriteria= {
             }
         },
 ```
-
-
-
-## Getting Started
-
-Run npm start or npm test in Terminal 
 
 ## API Reference
 
@@ -229,7 +216,7 @@ test('test1 - renders movie name, year, Imdb ID and an image', () => {
 });
 ```
 
-To run tests, run npm test in Terminal. The results will indicate if a test has failed. If all tests pass, you will see the screen below:
+To run tests, run `npm test` in Terminal. The results will indicate if a test has failed. If all tests pass, you will see the screen below:
 
 <img src="./images/testsScreenshot.png" width="450" alt="screenshot7">
 
@@ -249,4 +236,3 @@ To run tests, run npm test in Terminal. The results will indicate if a test has 
 Thanks to the following resources for debugging wisdom and programming guidance: 
 
 [GitHub Markdown guide](https://guides.github.com/features/mastering-markdown/)
-
