@@ -84,7 +84,7 @@ class MovieApp extends React.Component {
             console.log("we are about to make a fetch request with " + this.state.keyword)
             const wordQuery = this.state.keyword;
             const apiKey = '9990ead4';
-            const url = 'http://www.omdbapi.com/?';
+            const url = 'https://www.omdbapi.com/?';
             const queryParams = 's='; 
             const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery;
             const main = document.getElementById("loading");
