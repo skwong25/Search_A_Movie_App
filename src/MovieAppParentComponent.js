@@ -21,43 +21,37 @@
  * The Array contains key-value pairs, each representing a film's info.
  * { Search: [ 0:{Title: "Example", Year: "1990" ... }, 1:{}, 2:{}, 3:{} ], ...}
  * Access the film Title via e.Search. 
- * 
- * The current question:
- *    We can return a list of films, select the number of search results via dropdown menu.
- *    When the user initially loads the website, there is placeholder text that describes how to search.
- *    If no film is found, an error message shows. (Test using 'nofilm')
- *    We can sort films by alphabetical order, release year or imbd id no.
- *  
- * When the user performs a search, the input field/button should be disabled, and a progress spinner should be displayed
- * Write a unit test for sorting films alphabetically/by release date
- * When the use is performing a search, we can log how long the search took..?
  */
+
 import React from 'react';
 import './App.css';
 
+import InputField from './InputFieldComponent';
+import SearchButton from './SearchButtonComponent';
+import SortCriteriaDropdown from './SortCriteriaDropdownComponent';
+import SearchResults from './SearchResultsComponent';
+import {StartupLoadingMessage} from './StartupLoadingMessage';
+import sortCriteria  from './sortCriteriaObjects';
 
-import InputField from './InputField';
-import SubmitSearch from './SubmitSearch';
-import SortResults from './SortResults';
-import Output from './Output';
-import {Loading} from './Loading';
-import sortMethods  from './sortMethods';
-import { Obj } from './styleMe';
+import { StyleObject } from './styleObject';
+import notAMagicNumber from './numbers';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
 
-class App extends React.Component {
+class MovieApp extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = { 
             keyword: "", 
             movie: null,
-            results: 1,
+            results: notAMagicNumber,
             isPerformingSearch: false,
-            sort: null,  // or Object 
+            sort: null,  
         }
 
         this.updateKeyword = this.updateKeyword.bind(this);
@@ -79,20 +73,22 @@ class App extends React.Component {
     updateSortMethod(e) {
         if (e) {
             const sortName = e.target.value; // gets constant name E.g: TITLE_ASCENDING
-            const sortObject = sortMethods[sortName]; // evaluates to enumerator object accessed via imported JS module 
-            console.log("constant: " + sortName + ", category: " + sortObject.category) ;
+            const sortObject = sortCriteria[sortName]; // evaluates to enumerator object accessed via imported JS module 
+            console.log("updating sort method with constant: " + sortName + ", category: " + sortObject.category) ;
             this.setState({sort: sortObject}); // this should update state to the relevant Object 
         }
     }
 
     fetchMovieData() {
         if (this.state.keyword) { // "" empty string both evaluates to falsey and fulfills propTypes.string validation
-            console.log("the search begins...with " + this.state.keyword)
+            console.log("we are about to make a fetch request with " + this.state.keyword)
             const wordQuery = this.state.keyword;
             const apiKey = '9990ead4';
             const url = 'http://www.omdbapi.com/?';
             const queryParams = 's='; 
             const endpoint = url + 'apikey=' + apiKey + '&' +  queryParams + wordQuery;
+            const main = document.getElementById("loading");
+            main.innerHTML = "<p>...SEARCHING..."
              
             fetch(endpoint)
             .then(response => response.json())  
@@ -100,10 +96,11 @@ class App extends React.Component {
                 if (data.Response === "False") { 
                     alert(data.Error);
                 } else {
-                    console.log("did we get here?"); 
+                    console.log("fetch request has been successful"); 
                     const movieData = data.Search; // Films as an Array of key-value pairs [ {}, {}, {}] 
                     this.setState({movie: movieData});
                     this.setState({isPerformingSearch: true});
+                    main.innerHTML = "";
                 };
             }) 
         };
@@ -111,30 +108,41 @@ class App extends React.Component {
 
     render() { 
 
-        let classes = Obj.classes;
-        
+        let classes = StyleObject.classes;        
         return (
             <div>
+                <header>
+                {/* Header */}
+                <AppBar position="static">
+                    <Toolbar 
+                        className={classes.toolbar} 
+                        style={{ 
+                            color: "white", 
+                            backgroundImage: "url('../images/MovieBanner.png')",
+                        }}
+                    >
+                        <Button>
+                        <a href="https://www.bbcgoodfood.com/user/4010681/recipe/perfect-popcorn" target="_blank" rel="noopener noreferrer">
+                            <img alt="logo" src="../images/popcornFavicon.ico" />
+                        </a>
+                        </Button>
+                        <Typography 
+                            style={{ 
+                                color: "white", 
+                                backgroundColor: "grey",
+                            }}
+                            variant="h6" 
+                            className={classes.title}
+                        >
+                            Welcome to RB's Movie App
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                </header>
                 <Grid container className={classes.root} spacing={2} direction="column">
-                    <Box paddingBottom={5}>
-                    <Grid item align="center">
-                        {/* Header */}
-                        <div className="Header" style={{ color: "white", backgroundColor: "mediumvioletred" }}>
-                            <header>
-                                <Box p={5}>
-                                    <Typography align="center" component="h1" variant="h5">
-                                        @( * ____ * )@      
-                                    </Typography>
-                                </Box>
-                            </header>
-                        </div>
-                    </Grid>
-                    </Box>
-                    <Grid item align="center">   
-                        {/* Loading Message */}
-                        <Loading
-                            searchStatus={this.state.isPerformingSearch}
-                        />
+                    <Grid item align="center"> 
+                        {/* StartUp Loading Message */}  
+                        <StartupLoadingMessage/>
                     </Grid> 
                     <Grid item align="center">
                         {/* Input Fields */}
@@ -143,34 +151,37 @@ class App extends React.Component {
                             noOfResults={this.state.results}
                             updateKeyword={this.updateKeyword} 
                             updateNoOfResults={this.updateNoOfResults}
-                            
                         />
-                    </Grid>
+                    </Grid> 
                     <Grid item align="center">
                         {/* Sort Results */}
-                        <SortResults
+                        <SortCriteriaDropdown
+                            noOfResults={this.state.results}
+                            movieData={this.state.movie} 
                             searchStatus={this.state.isPerformingSearch}
                             sort={this.state.sort} //  { name: ... , userMessage: ... , category: ... }
                             updateSortMethod={this.updateSortMethod}
                             isItDisabled={this.state.results === 1}
                         />
-                    </Grid> 
+                    </Grid>
                     <Grid item align="center">
                         {/* Search Button */}
-                        <SubmitSearch
+                        <SearchButton
                             searchStatus={this.state.isPerformingSearch}
                             handleClick={this.fetchMovieData} 
                         />    
                     </Grid>
                     <Grid item align="center">
-                        {/* Output Text */}
-                        <Output 
+                        {/* Search Results Text and Movie Data */}
+                        <SearchResults
                             noOfResults={this.state.results}
                             movieData={this.state.movie}
                             sortObject={this.state.sort}
                             searchStatus={this.state.isPerformingSearch}
                             keyword={this.state.keyword}
                         />
+                        {/* Search Loading Message */}
+                        <div id="loading"></div>
                     </Grid>
             </Grid>
             </div>
@@ -178,4 +189,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default MovieApp;

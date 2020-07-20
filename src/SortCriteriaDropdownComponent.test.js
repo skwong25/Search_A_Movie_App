@@ -4,16 +4,23 @@
  */
 
 import React from 'react';
+import "@testing-library/jest-dom/extend-expect";
 import { render, screen, fireEvent } from '@testing-library/react';
-import SortResults from './SortResults';
+import SortCriteriaDropdown from './SortCriteriaDropdownComponent';
 
 test( 'renders dropdown list of sort criteria options', () => {
-    render( <SortResults disabled={false} searchStatus="true"/>);
+    render( <SortCriteriaDropdown 
+        isItDisabled={false} 
+        searchStatus={true}
+        updateSortMethod={()=>{}}
+        />);
     fireEvent.mouseDown(screen.getByRole('button'));
+    
     expect(screen.getByRole("option", {name: "Title A-Z"})).toBeInTheDocument();
     expect(screen.getByRole("option", {name: "Title Z-A"})).toBeInTheDocument();
     expect(screen.getByRole("option", {name: "Year (Oldest - Newest)"})).toBeInTheDocument();
     expect(screen.getByRole("option", {name: "Year (Newest - Oldest)"})).toBeInTheDocument();
     expect(screen.getByRole("option", {name: "imdbID no."})).toBeInTheDocument();
+    
 })
 

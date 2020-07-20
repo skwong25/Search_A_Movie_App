@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import Title from './Title';
+import Title from './TitleElement';
 import PropTypes from 'prop-types';
  
 import Grid from '@material-ui/core/Grid';
@@ -32,7 +32,7 @@ const InputField = (props) => {
 const numbers = [1,2,3,4,5,6,7,8,9,10]
 const instructions = [ 
     ["1. ", "Enter keyword","Example: 'The Notebook'"], 
-    ["2. ", "Select number of search results","None selected returns 1 search result"],
+    ["2. ", "Select number of search results","Search returns 10 results by default"],
     ["3. ", "Click Search", "Bingo!"]
 ]
 
@@ -107,7 +107,13 @@ const instructionsList = instructions.map((value)=> (
                                 <Paper>
                                     <Box p={1} m={0}>
                                         <InputLabel id="number">No. of Results</InputLabel>
-                                        <Select value={props.noOfResults} id="number" name="number" data-testid="dropdown" onChange={props.updateNoOfResults}>
+                                        <Select 
+                                            value={props.noOfResults} 
+                                            id="number" 
+                                            name="number" 
+                                            data-testid="dropdown" 
+                                            onChange={props.updateNoOfResults}
+                                        >
                                             {numbers.map((number)=> (
                                                 <MenuItem key={number} value={number}>
                                                     {number}

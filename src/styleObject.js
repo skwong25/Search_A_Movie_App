@@ -16,8 +16,8 @@
 
 import { makeStyles } from '@material-ui/core/styles';
 
-const Obj = {}
-Obj.classes = makeStyles((theme) => ({ 
+const StyleObject = {}
+StyleObject.classes = makeStyles((theme) => ({ 
     root: {
       display: 'flex', // apparently! defines a flex container, enables flex context for direct children
       flexGrow: '1',
@@ -25,5 +25,17 @@ Obj.classes = makeStyles((theme) => ({
     paper: {
       padding: 10,
     },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+    toolbar: {
+      minHeight: 1000,
+      alignItems: 'flex-start',
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
 }))  
-export { Obj }
+export { StyleObject }
