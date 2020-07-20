@@ -118,12 +118,12 @@ class MovieApp extends React.Component {
                         className={classes.toolbar} 
                         style={{ 
                             color: "white", 
-                            backgroundImage: "url('../images/MovieBanner.png')",
+                            backgroundImage: "url('./images/MovieBanner.png')",
                         }}
                     >
                         <Button>
                         <a href="https://www.bbcgoodfood.com/user/4010681/recipe/perfect-popcorn" target="_blank" rel="noopener noreferrer">
-                            <img alt="logo" src="../images/popcornFavicon.ico" />
+                            <img alt="logo" src="./images/popcornFavicon.ico" />
                         </a>
                         </Button>
                         <Typography 

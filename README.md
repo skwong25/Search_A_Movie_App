@@ -67,7 +67,7 @@ When a user selects a number from the dropdown, this updates `MovieApp.state.res
 
 If a search has been run, InputField will not render the above elements. 
 
-<img src="./images/movieAppScreenshot.png" width="450" alt="screenshot1">
+<img src="./screenshots/movieAppScreenshot.png" width="450" alt="screenshot1">
 
 ### Search Button ###
 `<SearchButton/>` initially renders a search button. 
@@ -77,7 +77,7 @@ If a keyword is provided, clicking the search button fires a HTTP GET request to
 
 If no data is found, the app fires an alert message. 
 
-<img src="./images/alertScreenshot.png" width="450" alt="screenshot2">
+<img src="./screenshots/alertScreenshot.png" width="450" alt="screenshot2">
 
 The data returned is an array of nested objects containing information in key-value pairs. Each object represents one movie. `fetchMovieData()` stores this data by updating MovieApp.state.movie.
 
@@ -125,21 +125,21 @@ const movies = newArray.map((movie, index) => {
 }                        
 ```
 
-<img src="./images/movieInfoScreenshot.png" width="450" alt="screenshot3">
+<img src="./screenshots/movieInfoScreenshot.png" width="450" alt="screenshot3">
 
 ### Sort Criteria Dropdown ###
 If a search has been run, `<SortCriteriaDropdown/>` renders static text and a dropdown list. Note that when only one search result is returned, the dropdown list is disabled. 
 
-<img src="./images/searchResultsScreenshot.png" width="450" alt="screenshot4">
+<img src="./screenshots/searchResultsScreenshot.png" width="450" alt="screenshot4">
 
 The static text allows the user to see if the number of results returned is as per their selection. 
 If it is, the text is purple. If it is not, the text will be pink.
 
-<img src="./images/lessResultsScreenshot.png" width="450" alt="screenshot5">
+<img src="./screenshots/lessResultsScreenshot.png" width="450" alt="screenshot5">
 
 The dropdown list allows movie results to be sorted by several categories such as 'Title A-Z'. 
 
-<img src="./images/sortDropdownScreenshot.png" width="450" alt="screenshot6">
+<img src="./screenshots/sortDropdownScreenshot.png" width="450" alt="screenshot6">
 
 When a user selects an option, this updates `MovieApp.state.sort` with the relevant Object imported from SortCriteriaObjects.js.
 
@@ -218,7 +218,7 @@ test('test1 - renders movie name, year, Imdb ID and an image', () => {
 
 To run tests, run `npm test` in Terminal. The results will indicate if a test has failed. If all tests pass, you will see the screen below:
 
-<img src="./images/testsScreenshot.png" width="450" alt="screenshot7">
+<img src="./screenshots/testsScreenshot.png" width="450" alt="screenshot7">
 
 
 ## How to use?
