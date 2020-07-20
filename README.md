@@ -3,7 +3,8 @@
 
 ## An App for Movie Searches
 
-Searches for movies by keyword using the OMDB API, displaying information to the user and allowing them to sort results
+Searches for movies by keyword using the OMDB API, displaying information to the user and allowing them to sort results.
+
 
 User Reviews:
 
@@ -12,7 +13,9 @@ User Reviews:
 
 ## Getting Started
 
-Run `npm start` or `npm test` in Terminal 
+Run `npm start` or `npm test` in Terminal.
+
+Access via web browser at https://skwong25.github.io/Search_A_Movie_App/ 
 
 ## Motivation
 
@@ -223,7 +226,7 @@ To run tests, run `npm test` in Terminal. The results will indicate if a test ha
 
 ## How to use?
 
-1.  Load page. 
+1.  Load page - link [here.](https://skwong25.github.io/Search_A_Movie_App/)
 2.  Enter a keyword into the input field. The text below will update to reflect and confirm your current input. 
 3.  Select the number of search results you require. The text will update to reflect and confirm your choice. 
     If no number is selected, this will default to '10'.
