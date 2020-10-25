@@ -134,7 +134,7 @@ class MovieApp extends React.Component {
                             variant="h6" 
                             className={classes.title}
                         >
-                            Welcome to RB's Movie App
+                            Welcome to Suzanna's Movie App
                         </Typography>
                     </Toolbar>
                 </AppBar>
