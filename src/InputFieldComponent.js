@@ -19,6 +19,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import MenuItem from '@material-ui/core/MenuItem';
+import numberOfResults from './numbers';
+
 
 const InputField = (props) => {
 
@@ -29,7 +31,13 @@ const InputField = (props) => {
             noOfResults.push(<option key={n}>{n}</option>) 
         }  
 
-const numbers = [1,2,3,4,5,6,7,8,9,10]
+// numbersArr will populate dropdown list of no. of results 
+const numbersArr = []
+for (let i = 1; i <= numberOfResults; i++) {
+    numbersArr.push(i)
+}
+          
+// const numbers = [1,2,3,4,5,6,7,8,9,10]
 const instructions = [ 
     ["1. ", "Enter keyword","Example: 'The Notebook'"], 
     ["2. ", "Select number of search results","Search returns 10 results by default"],
@@ -97,6 +105,7 @@ const instructionsList = instructions.map((value)=> (
                                             id="search" 
                                             onChange={props.updateKeyword}
                                             required
+                                            data-cy="input-field"
                                         />
                                     </Box>
                                 </Paper>
@@ -112,9 +121,10 @@ const instructionsList = instructions.map((value)=> (
                                             id="number" 
                                             name="number" 
                                             data-testid="dropdown" 
+                                            data-cy="dropdown-number-results"
                                             onChange={props.updateNoOfResults}
                                         >
-                                            {numbers.map((number)=> (
+                                            {numbersArr.map((number)=> (
                                                 <MenuItem key={number} value={number}>
                                                     {number}
                                                 </MenuItem>

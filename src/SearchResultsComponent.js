@@ -87,7 +87,7 @@ const SearchResults = (props) => {
             <div>
                 <Grid container className={classes.root} justify="center">
                     <Grid item>
-                        <Grid container data-testid="finalMovies" display="flex" direction="row" justify="center" alignItems="stretch">
+                        <Grid container data-cy="search-results" data-testid="finalMovies" display="flex" direction="row" justify="center" alignItems="stretch">
                                 {movies}
                         </Grid>
                     </Grid>
@@ -101,7 +101,7 @@ const SearchResults = (props) => {
                 
                 <Grid item sm={4} lg={4}> 
                     <Paper className={classes.paper}>
-                    <Box p={1} m={1}>
+                    <Box p={1} m={1} data-cy="responsive-text">
                     <Typography align="left" variant="body2" padding={5}>
                      The keyword is {props.keyword || '???'}
                      </Typography>
