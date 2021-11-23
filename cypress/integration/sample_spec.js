@@ -183,7 +183,7 @@ describe('results responsive text', () => {
     it.only('updates text with selected dropdown value', () => {
         cy.get('[data-cy=dropdown-number-results]').click()
         cy.get('ul>li')
-            .eq(numberOfResults-2) // zero-based index 
+            .eq(numberOfResults - 2) // zero-based index 
             .click()
         cy.get('[data-cy=responsive-text]')
             .invoke('text')
