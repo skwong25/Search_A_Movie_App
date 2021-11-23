@@ -121,7 +121,9 @@ class MovieApp extends React.Component {
                             backgroundImage: "url('./images/MovieBanner.png')",
                         }}
                     >
-                        <Button>
+                        <Button
+                            data-cy="popcorn-button"
+                        >
                         <a href="https://www.bbcgoodfood.com/user/4010681/recipe/perfect-popcorn" target="_blank" rel="noopener noreferrer">
                             <img alt="logo" src="./images/popcornFavicon.ico" />
                         </a>
@@ -133,6 +135,7 @@ class MovieApp extends React.Component {
                             }}
                             variant="h6" 
                             className={classes.title}
+                            data-cy="heading-text"
                         >
                             Welcome to Suzanna's Movie App
                         </Typography>
