@@ -1,3 +1,3 @@
-const notAMagicNumber =  10 
+const numberOfResults =  10 
 
-export default notAMagicNumber;
+export default numberOfResults;

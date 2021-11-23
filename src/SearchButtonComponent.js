@@ -18,7 +18,13 @@ const SearchButton = (props) => {
             <div>
                 <Grid item xs={12} sm={4} lg={4} align="right">
                     <Paper align="right">
-                        <Button fullWidth variant="contained" style={{ color: "white", backgroundColor: "mediumvioletred" }} onClick={props.handleClick}>Search</Button> 
+                        <Button 
+                            fullWidth variant="contained" 
+                            style={{ color: "white", backgroundColor: "mediumvioletred" }} 
+                            onClick={props.handleClick}
+                            data-cy="search-button" 
+                        >
+                            Search</Button> 
                     </Paper>
                 </Grid>
             </div>
