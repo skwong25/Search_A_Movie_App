@@ -187,7 +187,7 @@ describe('results responsive text', () => {
             .click()
         cy.get('[data-cy=responsive-text]')
             .invoke('text')
-            .should('contain', `Press SEARCH to return ${numberOfResults-1} results`);
+            .should('contain', `Press SEARCH to return ${numberOfResults - 1} results`);
     })
 })
 
