@@ -34,7 +34,7 @@ import {StartupLoadingMessage} from './StartupLoadingMessage';
 import sortCriteria  from './sortCriteriaObjects';
 
 import { StyleObject } from './styleObject';
-import notAMagicNumber from './numbers';
+import numberOfResults from './numbers';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -49,7 +49,7 @@ class MovieApp extends React.Component {
         this.state = { 
             keyword: "", 
             movie: null,
-            results: notAMagicNumber,
+            results: numberOfResults,
             isPerformingSearch: false,
             sort: null,  
         }
