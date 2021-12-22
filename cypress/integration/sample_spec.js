@@ -3,15 +3,16 @@
     - page banner text DONE
     - popcorn button DONE 
     - input box DONE
-    - no. results dropdown
+    - no. results dropdown DONE
     - search button
-    2. Check interactions
+
+2. Check interactions
     - input box
         - allows typing DONE
         - initial state of responsive text DONE
         - input updates text DONE
      - no. results dropdown: 
-        - displays multiple options
+        - displays multiple options DONE
         - selected value should update the text DONE
      - search function: 
         - button click triggers search DONE
@@ -180,7 +181,7 @@ describe('results responsive text', () => {
         cy.contains('Press SEARCH to return 10 results');
     })
 
-    it.only('updates text with selected dropdown value', () => {
+    it('updates text with selected dropdown value', () => {
         cy.get('[data-cy=dropdown-number-results]').click()
         cy.get('ul>li')
             .eq(numberOfResults-2) // zero-based index 
@@ -195,12 +196,17 @@ describe('search function', () => {
 
     beforeEach(() => {
         cy.visit('/')
-        // TODO: define aliases for input field & search button
+        cy.get('[data-cy=input-field]')
+            .as('input');
+        cy.get('[data-cy=dropdown-number-results]')
+            .as('dropdown');
+        cy.get('[data-cy=search-button]')
+            .as('search');
     })
     
     it('accepts a search term and returns search results', () => {
-        cy.get('[data-cy=input-field]').type('the notebook')
-        cy.get('[data-cy=search-button]').click() // alternative: cy.contains('Search').click()
+        cy.get('@input').type('the notebook')
+        cy.get('@search').click() // alternative: cy.contains('Search').click()
         cy.wait(500); 
         // should we await API response? Can we stub out the back-end and mock response?
         // we can alias requests/responses via fixture data 
@@ -208,22 +214,77 @@ describe('search function', () => {
     })
 
     it('returns no. of results as specified in the dropdown', () => {
-        var noOfResults = 10;
-        // TODO: Add cy command to grab dropdown box and select the value matching noOfResults  
+        const dataSet = [1,2,3,4,5,6,7,8,9,10]; 
         // TODO: Add table to test all values 
-        cy.get('[data-cy=input-field]').type('the notebook')
-        cy.get('[data-cy=search-button]').click()
-        cy.wait(500); 
-        cy.get('[data-cy=search-results]')
-        .find('li') 
-        .first()
-        .invoke('text')
-        .should('eq', `1/${noOfResults}`); // chainer can be 'contain' 
+        dataSet.forEach(($element) => {
+            cy.visit('/')
+            let noOfResults = $element;
+            cy.wait(500); 
+            console.log("number of results: " + noOfResults)
+            // Grabs dropdown box and selects a value 
+            cy.get('@dropdown').click()
+            cy.get('ul>li') // yields all li items with a parent of ul 
+                .eq(noOfResults-1) 
+                .click() 
+            // Performs a search 
+            cy.get('@input').type('the notebook')
+            cy.get('@search').click()
+            cy.wait(500); 
+            // Asserts the no. of results matches the value selected 
+            cy.get('[data-cy=search-results]')
+            .find('li') 
+            .first()
+            .invoke('text')
+            .should('eq', `1/${noOfResults}`); // chainer can be 'contain' 
+        })
     })
-/*
-    it('displays a pop-up alert notification if no search results are found', () => {
-        cy.get('[data-cy=input-field]').type('blahblahblah')
+
+    it('displays alert text on pop-up notification if no search results are found', () => {
+        // listens for alerts, asserts alert text - BUT does not check that an alert is fired
+        // events bound to cy. apply to this singular test. Note that binding to Cypress.on() persists for all tests
+        cy.on('window:alert', (str) => {
+            expect(str).to.eq("Movie not found!")
+        })
+        // triggers search that returns 0 results
+        cy.get('@input').type('blahblahblah');
+        cy.get('@search').click();
+    })
+
+    it.only('can assert on the alert text content', () => {
+        const stub = cy.stub()
+      
+        cy.on('window:alert', stub)
+        cy.get('@input').type('blahblahblah');
+
+        cy.get('@input').type('blahblahblah');
+        cy.get('@search')
+            .click()    
+        // TODO: try mocking the API response locally 
+        cy.wait(500).then(xhr => {
+            expect(stub.getCall(0)).to.be.calledWith("Movie not found!")
+        }) 
+    })
+})
+
+describe('sort function', () => {
+    it('displays dropdown with sort criteria', () => {
 
     })
-    */
+
+    it('disables dropdown if only one search result is returned', () => {
+
+    })
+
+    it('sorts results alphabetically', () => {
+
+    })
+
+    it('sorts results chronologically', () => {
+
+    })
+
+    it('sorts results by IMDB number', () => {
+        
+    })
 })
+    // Note that if there is only one search result returned, then the search results filter is disabled
